@@ -3,461 +3,292 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YKS 2026 · Ders Programı</title>
+<title>YKS 2026 · Çalışma Paneli</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* dark panel */
-  --ink:      #0e0c0a;
-  --ink2:     #161310;
-  --paper:    #f0ebe2;
-  --red:      #c0392b;
-  --red-dim:  rgba(192,57,43,0.18);
-  --gold:     #c9961a;
-  --gold-dim: rgba(201,150,26,0.2);
-  --dim:      rgba(240,235,226,0.38);
-  --hairline: rgba(240,235,226,0.09);
-
-  /* light panel */
-  --bg:       #f4f0e8;
-  --surface:  #ffffff;
-  --border:   #e0dace;
-  --border2:  #ccc5b8;
-  --text:     #1a1714;
-  --muted:    #8c8378;
-  --green:    #2e5e28;
-  --green-lt: #eaf0e9;
-  --amber:    #b87420;
-  --amber-lt: #fdf4e3;
-  --done:     #f1f5f0;
-
-  --mono: 'DM Mono', monospace;
-  --play: 'Playfair Display', Georgia, serif;
-  --disp: 'Bebas Neue', sans-serif;
-  --r:    8px;
-  --sh:   0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+  --ink:#0e0c0a; --paper:#f0ebe2; --red:#c0392b; --red-dim:rgba(192,57,43,0.15);
+  --gold:#c9961a; --gold-dim:rgba(201,150,26,0.18); --dim:rgba(240,235,226,0.38); --hairline:rgba(240,235,226,0.08);
+  --bg:#f4f0e8; --surface:#fff; --border:#e0dace; --border2:#ccc5b8;
+  --text:#1a1714; --muted:#8c8378; --green:#2e5e28; --green-lt:#eaf0e9;
+  --amber:#b87420; --amber-lt:#fdf4e3; --done:#f1f5f0; --blue:#1a4e8a; --blue-lt:#e8eef7;
+  --mono:'DM Mono',monospace; --play:'Playfair Display',Georgia,serif; --disp:'Bebas Neue',sans-serif;
+  --r:8px; --sh:0 2px 8px rgba(0,0,0,0.06),0 8px 24px rgba(0,0,0,0.04);
 }
-
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:13px;min-height:100vh;}
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 13px;
-  min-height: 100vh;
-}
+/* ══ HERO ══ */
+.hero{background:var(--ink);position:relative;overflow:hidden;padding:2rem 2.5rem 1.4rem;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--hairline) 1px,transparent 1px),linear-gradient(90deg,var(--hairline) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(201,150,26,0.07) 0%,rgba(192,57,43,0.05) 45%,transparent 70%);top:-180px;left:-80px;pointer-events:none;z-index:0;animation:gp 6s ease-in-out infinite;}
+@keyframes gp{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.hero-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;align-items:center;animation:fadeUp .8s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.hdiv{width:1px;height:80px;background:var(--hairline);align-self:center;}
 
-/* ═══════════════════════════════════════
-   HERO BANNER
-═══════════════════════════════════════ */
-.hero {
-  background: var(--ink);
-  position: relative;
-  overflow: hidden;
-  padding: 2.4rem 2.5rem 1.6rem;
-}
-
-/* subtle grid texture */
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(var(--hairline) 1px, transparent 1px),
-    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
-  background-size: 48px 48px;
-  pointer-events: none; z-index: 0;
-}
-
-/* warm glow */
-.hero-glow {
-  position: absolute;
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(201,150,26,0.07) 0%, rgba(192,57,43,0.06) 40%, transparent 70%);
-  top: -200px; left: -100px;
-  pointer-events: none; z-index: 0;
-  animation: glowPulse 6s ease-in-out infinite;
-}
-@keyframes glowPulse {
-  0%,100%{transform:scale(1);opacity:.8;}
-  50%{transform:scale(1.1);opacity:1;}
-}
-
-.hero-inner {
-  position: relative; z-index: 1;
-  max-width: 1160px; margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1px 1fr 1px 1fr;
-  gap: 0;
-  align-items: center;
-  animation: fadeUp .8s ease both;
-}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-
-.hero-divider {
-  width: 1px; height: 80px;
-  background: var(--hairline);
-  align-self: center;
-}
-
-/* ── LEFT: YKS title + countdown ── */
-.hero-left { padding: 0 2rem 0 0; }
-
-.yks-eyebrow {
-  font-family: var(--mono);
-  font-size: .6rem; letter-spacing: .32em;
-  color: var(--gold); text-transform: uppercase;
-  margin-bottom: .7rem;
-}
-
-.yks-title {
-  font-family: var(--disp);
-  font-size: clamp(2.8rem, 5vw, 4.6rem);
-  line-height: .88; color: var(--paper);
-  letter-spacing: .02em;
-  margin-bottom: .25rem;
-}
-.yks-title em { color: var(--red); font-style: normal; }
-
-.yks-date {
-  font-family: var(--mono);
-  font-size: .65rem; font-style: italic;
-  color: var(--dim); letter-spacing: .04em;
-  margin-bottom: 1.4rem;
-}
-
-/* countdown row */
-.countdown {
-  display: flex; align-items: flex-start;
-  gap: clamp(.4rem, 1.5vw, 1rem);
-}
-.cd-unit { display: flex; flex-direction: column; align-items: center; gap: .18rem; }
-.cd-num {
-  font-family: var(--disp);
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  line-height: 1; color: var(--paper);
-  text-shadow: 0 0 24px var(--gold-dim);
-  transition: color .12s;
-}
-.cd-num.flash { color: var(--gold); }
-.cd-lbl {
-  font-family: var(--mono); font-size: .5rem;
-  letter-spacing: .28em; color: var(--dim);
-  text-transform: uppercase;
-}
-.cd-sep {
-  font-family: var(--disp);
-  font-size: clamp(1.6rem, 3vw, 2.6rem);
-  color: var(--red); opacity: .5;
-  margin-top: .05em;
-  animation: blink 1s step-start infinite;
-}
+/* YKS left */
+.hero-left{padding:0 2rem 0 0;}
+.yks-eye{font-family:var(--mono);font-size:.58rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem;}
+.yks-title{font-family:var(--disp);font-size:clamp(2.6rem,5vw,4.4rem);line-height:.88;color:var(--paper);letter-spacing:.02em;margin-bottom:.2rem;}
+.yks-title em{color:var(--red);font-style:normal;}
+.yks-date{font-family:var(--mono);font-size:.63rem;font-style:italic;color:var(--dim);margin-bottom:1.2rem;}
+.countdown{display:flex;align-items:flex-start;gap:clamp(.3rem,1.2vw,.9rem);}
+.cd-unit{display:flex;flex-direction:column;align-items:center;gap:.15rem;}
+.cd-num{font-family:var(--disp);font-size:clamp(1.8rem,3.8vw,3rem);line-height:1;color:var(--paper);text-shadow:0 0 20px var(--gold-dim);transition:color .12s;}
+.cd-num.flash{color:var(--gold);}
+.cd-lbl{font-family:var(--mono);font-size:.48rem;letter-spacing:.26em;color:var(--dim);text-transform:uppercase;}
+.cd-sep{font-family:var(--disp);font-size:clamp(1.4rem,2.8vw,2.4rem);color:var(--red);opacity:.5;margin-top:.04em;animation:blink 1s step-start infinite;}
 @keyframes blink{0%,100%{opacity:.5;}50%{opacity:.12;}}
 
-/* progress bar */
-.hero-progress {
-  position: relative; z-index: 1;
-  max-width: 1160px; margin: 1.2rem auto 0;
-  display: flex; align-items: center; gap: .8rem;
-}
-.hp-lbl { font-family: var(--mono); font-size: .57rem; letter-spacing: .14em; color: var(--dim); white-space: nowrap; }
-.hp-track { flex: 1; height: 1px; background: var(--hairline); position: relative; }
-.hp-fill {
-  position: absolute; top: 0; left: 0; height: 100%;
-  background: linear-gradient(90deg, var(--gold), var(--red));
-  box-shadow: 0 0 8px var(--gold-dim);
-  transition: width 1s ease;
-}
+/* clock center */
+.hero-center{padding:0 2rem;text-align:center;}
+.sec-lbl{font-family:var(--mono);font-size:.54rem;letter-spacing:.28em;color:var(--dim);text-transform:uppercase;margin-bottom:.45rem;}
+.clock-time{font-family:var(--disp);font-size:clamp(2rem,3.8vw,3.4rem);color:var(--paper);line-height:1;letter-spacing:.06em;text-shadow:0 0 28px var(--gold-dim);}
+.clock-date-str{font-family:var(--mono);font-size:.58rem;color:var(--dim);margin-top:.28rem;font-style:italic;}
 
-/* motto */
-.hero-motto {
-  position: relative; z-index: 1;
-  max-width: 1160px; margin: .6rem auto 0;
-  font-family: var(--play); font-style: italic;
-  font-size: .82rem; color: var(--dim);
-  transition: opacity .5s ease;
-}
+/* timer right */
+.hero-right{padding:0 0 0 2rem;}
+.timer-display{font-family:var(--disp);font-size:clamp(1.8rem,3.5vw,3rem);line-height:1;color:var(--paper);letter-spacing:.05em;margin-bottom:.2rem;transition:color .2s,text-shadow .2s;}
+.timer-display.running{color:var(--gold);text-shadow:0 0 24px var(--gold-dim);}
+.timer-display.paused{color:rgba(240,235,226,.3);}
+.timer-ms{font-size:.52em;color:var(--dim);letter-spacing:.06em;}
+.pomo-ring{font-family:var(--mono);font-size:.56rem;color:var(--dim);letter-spacing:.1em;margin-bottom:.5rem;}
+.pomo-ring span{color:var(--gold);}
+.timer-btns{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.4rem;}
+.tbtn{font-family:var(--disp);font-size:.58rem;letter-spacing:.12em;padding:.28rem .65rem;border-radius:4px;border:1px solid var(--hairline);background:rgba(240,235,226,.06);color:var(--paper);cursor:pointer;transition:all .15s;line-height:1;}
+.tbtn:hover{background:rgba(240,235,226,.13);border-color:rgba(240,235,226,.26);}
+.tbtn.go{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+.tbtn.go:hover{opacity:.85;}
+.tbtn.stop{background:rgba(192,57,43,.15);border-color:rgba(192,57,43,.4);color:#e07060;}
+.tbtn:disabled{opacity:.3;cursor:default;pointer-events:none;}
+.timer-laps{max-height:36px;overflow-y:auto;scrollbar-width:none;}
+.timer-laps::-webkit-scrollbar{display:none;}
+.lap-row{font-family:var(--mono);font-size:.55rem;color:var(--dim);line-height:1.9;letter-spacing:.06em;}
 
-/* ── CENTER: Clock ── */
-.hero-center { padding: 0 2rem; text-align: center; }
+/* hero bottom */
+.hero-bottom{position:relative;z-index:1;max-width:1200px;margin:.9rem auto 0;}
+.hero-progress{display:flex;align-items:center;gap:.7rem;margin-bottom:.4rem;}
+.hp-lbl{font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;color:var(--dim);white-space:nowrap;}
+.hp-track{flex:1;height:1px;background:var(--hairline);position:relative;}
+.hp-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--gold),var(--red));box-shadow:0 0 8px var(--gold-dim);transition:width 1s ease;}
+.hero-motto{font-family:var(--play);font-style:italic;font-size:.8rem;color:var(--dim);transition:opacity .5s ease;}
 
-.clock-label {
-  font-family: var(--mono); font-size: .56rem;
-  letter-spacing: .3em; color: var(--dim);
-  text-transform: uppercase; margin-bottom: .5rem;
-}
-.clock-time {
-  font-family: var(--disp);
-  font-size: clamp(2.2rem, 4vw, 3.6rem);
-  color: var(--paper); line-height: 1;
-  letter-spacing: .06em;
-  text-shadow: 0 0 32px var(--gold-dim);
-}
-.clock-date-str {
-  font-family: var(--mono); font-size: .6rem;
-  color: var(--dim); letter-spacing: .06em;
-  margin-top: .3rem; font-style: italic;
-}
+/* ══ MAIN ══ */
+.main{max-width:1200px;margin:0 auto;padding:2rem 2rem 5rem;}
 
-/* ── RIGHT: Kronometre ── */
-.hero-right { padding: 0 0 0 2rem; }
+/* section grid */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;}
+.grid-full{margin-bottom:1.2rem;}
 
-.timer-label {
-  font-family: var(--mono); font-size: .56rem;
-  letter-spacing: .3em; color: var(--dim);
-  text-transform: uppercase; margin-bottom: .5rem;
-}
-.timer-display {
-  font-family: var(--disp);
-  font-size: clamp(2rem, 3.8vw, 3.2rem);
-  line-height: 1; color: var(--paper);
-  letter-spacing: .05em;
-  margin-bottom: .7rem;
-  transition: color .2s, text-shadow .2s;
-}
-.timer-display.running {
-  color: var(--gold);
-  text-shadow: 0 0 28px var(--gold-dim);
-}
-.timer-display.paused { color: rgba(240,235,226,.35); }
-.timer-ms {
-  font-size: .55em; color: var(--dim);
-  letter-spacing: .08em; vertical-align: baseline;
-}
+/* cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);padding:1.2rem 1.4rem;overflow:hidden;}
+.card-title{font-family:var(--play);font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;}
+.card-title .ct-icon{font-size:1rem;}
 
-.timer-btns { display: flex; gap: .4rem; margin-bottom: .5rem; flex-wrap: wrap; }
-.tbtn {
-  font-family: var(--disp); font-size: .6rem;
-  letter-spacing: .14em; padding: .3rem .7rem;
-  border-radius: 4px; border: 1px solid var(--hairline);
-  background: rgba(240,235,226,.06); color: var(--paper);
-  cursor: pointer; transition: all .15s; line-height: 1;
-}
-.tbtn:hover { background: rgba(240,235,226,.13); border-color: rgba(240,235,226,.28); }
-.tbtn.go { background: var(--gold); border-color: var(--gold); color: var(--ink); }
-.tbtn.go:hover { opacity: .85; }
-.tbtn.stop { background: rgba(192,57,43,.15); border-color: rgba(192,57,43,.4); color: #e07060; }
-.tbtn.lap { border-color: rgba(240,235,226,.2); }
-.tbtn:disabled { opacity: .3; cursor: default; pointer-events: none; }
+/* topbar */
+.topbar{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.page-title{font-family:var(--play);font-size:1.4rem;font-weight:400;font-style:italic;color:var(--text);}
+.page-title strong{font-weight:700;font-style:normal;color:var(--green);}
+.today-pill{font-family:var(--mono);font-size:.63rem;color:var(--muted);letter-spacing:.07em;padding:.26rem .65rem;border:1px solid var(--border);border-radius:20px;background:var(--surface);}
 
-.timer-laps { max-height: 40px; overflow-y: auto; scrollbar-width: none; }
-.timer-laps::-webkit-scrollbar { display: none; }
-.lap-row {
-  font-family: var(--mono); font-size: .58rem;
-  color: var(--dim); line-height: 1.9; letter-spacing: .07em;
-}
+/* ── POMODORO ── */
+.pomo-display{font-family:var(--disp);font-size:2.8rem;color:var(--text);line-height:1;margin-bottom:.3rem;text-align:center;}
+.pomo-display.work{color:var(--red);}
+.pomo-display.rest{color:var(--green);}
+.pomo-mode{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:.6rem;}
+.pomo-btns{display:flex;gap:.4rem;justify-content:center;margin-bottom:.7rem;}
+.lbtn{font-family:var(--mono);font-size:.65rem;padding:.3rem .75rem;border-radius:5px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;transition:all .15s;}
+.lbtn:hover{border-color:var(--border2);}
+.lbtn.primary{background:var(--red);border-color:var(--red);color:#fff;}
+.lbtn.primary:hover{opacity:.85;}
+.lbtn.green{background:var(--green);border-color:var(--green);color:#fff;}
+.pomo-sessions{display:flex;gap:.3rem;justify-content:center;}
+.pomo-dot{width:8px;height:8px;border-radius:50%;background:var(--border);}
+.pomo-dot.done{background:var(--red);}
+.pomo-prog{width:100%;height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:.6rem;}
+.pomo-prog-fill{height:100%;border-radius:2px;transition:width .5s ease;}
+.pomo-prog-fill.work{background:var(--red);}
+.pomo-prog-fill.rest{background:var(--green);}
 
-/* ═══════════════════════════════════════
-   SCHEDULE
-═══════════════════════════════════════ */
-.main {
-  max-width: 1160px; margin: 0 auto;
-  padding: 2rem 2rem 5rem;
-}
+/* ── TRIAL TRACKER ── */
+.trial-form{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem;align-items:flex-end;}
+.tf-group{display:flex;flex-direction:column;gap:.22rem;}
+.tf-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+.tf-input{font-family:var(--mono);font-size:.7rem;padding:.28rem .5rem;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s;}
+.tf-input:focus{border-color:var(--green);}
+.tf-input.sm{width:72px;}
+.tf-input.md{width:100px;}
+.tf-select{font-family:var(--mono);font-size:.7rem;padding:.28rem .4rem;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);outline:none;}
+.trials-table{width:100%;border-collapse:collapse;}
+.trials-table th{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:.3rem .5rem;border-bottom:1px solid var(--border);}
+.trials-table td{font-family:var(--mono);font-size:.68rem;padding:.4rem .5rem;border-bottom:1px solid var(--border);color:var(--text);}
+.trials-table tr:last-child td{border-bottom:none;}
+.trial-del{background:none;border:none;color:var(--border2);cursor:pointer;padding:.1rem .3rem;border-radius:3px;font-size:.7rem;transition:color .15s;}
+.trial-del:hover{color:var(--red);}
+.trial-badge{display:inline-block;font-family:var(--mono);font-size:.58rem;padding:.1rem .4rem;border-radius:3px;background:var(--blue-lt);color:var(--blue);letter-spacing:.04em;}
+.trial-badge.ayt{background:var(--amber-lt);color:var(--amber);}
+.net-up{color:var(--green);}
+.net-dn{color:var(--red);}
 
-.topbar {
-  display: flex; align-items: baseline;
-  justify-content: space-between; gap: 1rem;
-  flex-wrap: wrap; margin-bottom: 1.4rem;
-}
-.page-title {
-  font-family: var(--play);
-  font-size: 1.5rem; font-weight: 400; font-style: italic;
-  color: var(--text); letter-spacing: -.01em;
-}
-.page-title strong { font-weight: 700; font-style: normal; color: var(--green); }
-.today-pill {
-  font-family: var(--mono); font-size: .65rem;
-  color: var(--muted); letter-spacing: .08em;
-  padding: .28rem .7rem;
-  border: 1px solid var(--border); border-radius: 20px;
-  background: var(--surface);
-}
+/* ── SCHEDULE ── */
+.day-tabs{display:flex;gap:.32rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:.12rem;scrollbar-width:none;}
+.day-tabs::-webkit-scrollbar{display:none;}
+.dtab{flex-shrink:0;padding:.36rem .82rem;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-family:var(--mono);font-size:.67rem;letter-spacing:.05em;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.dtab:hover{border-color:var(--green);color:var(--green);}
+.dtab.active{background:var(--green);border-color:var(--green);color:#fff;}
+.dtab.is-today{position:relative;}
+.dtab.is-today::after{content:'';position:absolute;top:-2px;right:-2px;width:6px;height:6px;background:var(--amber);border-radius:50%;border:1.5px solid var(--bg);}
 
-/* day tabs */
-.day-tabs {
-  display: flex; gap: .35rem; margin-bottom: 1.1rem;
-  overflow-x: auto; padding-bottom: .15rem; scrollbar-width: none;
-}
-.day-tabs::-webkit-scrollbar { display: none; }
-.dtab {
-  flex-shrink: 0; padding: .38rem .85rem;
-  border-radius: 20px; border: 1px solid var(--border);
-  background: var(--surface); color: var(--muted);
-  font-family: var(--mono); font-size: .68rem;
-  letter-spacing: .05em; cursor: pointer;
-  transition: all .15s; white-space: nowrap;
-}
-.dtab:hover { border-color: var(--green); color: var(--green); }
-.dtab.active { background: var(--green); border-color: var(--green); color: #fff; }
-.dtab.is-today { position: relative; }
-.dtab.is-today::after {
-  content: ''; position: absolute; top: -2px; right: -2px;
-  width: 6px; height: 6px; background: var(--amber);
-  border-radius: 50%; border: 1.5px solid var(--bg);
-}
+.day-panel{display:none;}
+.day-panel.active{display:block;animation:slideIn .18s ease;}
+@keyframes slideIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 
-/* panel */
-.day-panel { display: none; }
-.day-panel.active { display: block; animation: slideIn .18s ease; }
-@keyframes slideIn { from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);} }
+.day-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.85rem 1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:.55rem;}
+.day-head-name{font-family:var(--play);font-size:1rem;font-weight:700;color:var(--text);}
+.day-stats{display:flex;gap:.9rem;}
+.dstat{text-align:right;}
+.dstat-n{font-size:.85rem;font-weight:500;color:var(--green);display:block;line-height:1;}
+.dstat-l{font-size:.56rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+.add-btn{display:flex;align-items:center;gap:.3rem;padding:.38rem .8rem;background:var(--green);color:#fff;border:none;border-radius:6px;font-family:var(--mono);font-size:.66rem;cursor:pointer;transition:opacity .15s;}
+.add-btn:hover{opacity:.85;}
 
-/* day header */
-.day-head {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 1rem; flex-wrap: wrap;
-  padding: .9rem 1.2rem;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r); box-shadow: var(--sh);
-  margin-bottom: .6rem;
-}
-.day-head-name {
-  font-family: var(--play); font-size: 1.05rem; font-weight: 700;
-  color: var(--text);
-}
-.day-stats { display: flex; gap: 1rem; }
-.dstat { text-align: right; }
-.dstat-n { font-size: .88rem; font-weight: 500; color: var(--green); display: block; line-height: 1; }
-.dstat-l { font-size: .58rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.day-prog{height:2px;background:var(--border);border-radius:2px;margin-bottom:.75rem;overflow:hidden;}
+.day-prog-fill{height:100%;background:linear-gradient(90deg,var(--green),#6dbf63);border-radius:2px;transition:width .4s ease;}
 
-.add-btn {
-  display: flex; align-items: center; gap: .35rem;
-  padding: .4rem .85rem;
-  background: var(--green); color: #fff;
-  border: none; border-radius: 6px;
-  font-family: var(--mono); font-size: .68rem;
-  cursor: pointer; transition: opacity .15s;
-}
-.add-btn:hover { opacity: .85; }
+.blocks{display:flex;flex-direction:column;gap:.44rem;}
+.block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);transition:border-color .15s;overflow:hidden;}
+.block:hover{border-color:var(--border2);}
+.block.done{background:var(--done);}
+.block.done .bsubject{text-decoration:line-through;opacity:.4;}
+.block-grid{display:grid;grid-template-columns:34px 1fr auto;align-items:stretch;}
+.bcheck{display:flex;align-items:center;justify-content:center;padding:0 0 0 .68rem;cursor:pointer;}
+.bcirc{width:16px;height:16px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;transition:all .15s;color:transparent;flex-shrink:0;}
+.block.done .bcirc{background:var(--green);border-color:var(--green);color:#fff;}
+.bcontent{padding:.58rem .48rem;display:flex;flex-direction:column;gap:.24rem;min-width:0;}
+.bsubject{font-family:var(--play);font-size:.86rem;font-weight:400;color:var(--text);background:none;border:none;outline:none;width:100%;padding:0;line-height:1.3;cursor:text;}
+.bsubject::placeholder{color:var(--border2);font-style:italic;}
+.brow2{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;}
+.time-grp{display:flex;align-items:center;gap:.18rem;}
+.tsep{color:var(--muted);font-size:.65rem;}
+.tinput{font-family:var(--mono);font-size:.65rem;color:var(--green);background:var(--green-lt);border:1px solid transparent;border-radius:4px;padding:.14rem .3rem;outline:none;width:92px;transition:border-color .15s;}
+.tinput:focus{border-color:var(--green);}
+.tag-in{font-family:var(--mono);font-size:.63rem;color:var(--amber);background:var(--amber-lt);border:1px solid transparent;border-radius:4px;padding:.14rem .38rem;outline:none;width:82px;transition:border-color .15s;}
+.tag-in:focus{border-color:var(--amber);}
+.tag-in::placeholder{color:#c89040;opacity:.55;}
+.dur-pill{font-size:.58rem;font-weight:500;letter-spacing:.04em;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:.1rem .32rem;white-space:nowrap;}
+.bnote{font-family:var(--mono);font-size:.65rem;font-style:italic;color:var(--muted);background:none;border:none;outline:none;width:100%;resize:none;line-height:1.5;overflow:hidden;min-height:0;}
+.bnote::placeholder{color:var(--border2);}
+.bactions{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:.48rem .48rem .48rem 0;gap:.18rem;}
+.ibtn{background:none;border:none;color:var(--border2);cursor:pointer;padding:.18rem;border-radius:4px;display:flex;align-items:center;justify-content:center;transition:color .15s,background .15s;line-height:0;}
+.ibtn:hover{color:var(--red);background:#fdf0ee;}
+.empty{text-align:center;padding:2.5rem 2rem;color:var(--muted);border:2px dashed var(--border);border-radius:var(--r);}
+.empty-t{font-family:var(--play);font-size:.9rem;font-style:italic;}
+.empty p{font-size:.7rem;margin-top:.3rem;}
 
-/* progress */
-.day-prog { height: 2px; background: var(--border); border-radius: 2px; margin-bottom: .8rem; overflow: hidden; }
-.day-prog-fill { height: 100%; background: linear-gradient(90deg, var(--green), #6dbf63); border-radius: 2px; transition: width .4s ease; }
+/* ── VOCABULARY ── */
+.vocab-card { border-left: 3px solid var(--blue); }
+.vocab-date { font-family:var(--mono); font-size:.58rem; color:var(--muted); letter-spacing:.06em; margin-left:.5rem; }
+.vocab-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:.75rem; }
+.vcard { background:var(--bg); border:1px solid var(--border); border-radius:var(--r); padding:.8rem 1rem; }
+.vcard-word { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif; font-size:1.05rem; font-weight:700; color:var(--blue); margin-bottom:.12rem; }
+.vcard-pron { font-family:var(--mono); font-size:.62rem; color:var(--muted); margin-bottom:.28rem; letter-spacing:.03em; }
+.vcard-type { display:inline-block; font-family:var(--mono); font-size:.55rem; letter-spacing:.1em; text-transform:uppercase; background:var(--blue-lt); color:var(--blue); padding:.08rem .35rem; border-radius:3px; margin-bottom:.35rem; }
+.vcard-meaning { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif; font-size:.88rem; font-weight:600; color:#000; margin-bottom:.4rem; }
+.vcard-example { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif; font-size:.78rem; color:#444; line-height:1.55; font-style:italic; }
+.vcard-example span { font-style:normal; font-weight:600; color:var(--blue); }
 
-/* blocks */
-.blocks { display: flex; flex-direction: column; gap: .48rem; }
+/* ── QUIZ ── */
+.quiz-card{border-left:3px solid var(--green);}
+.quiz-start{display:flex;flex-direction:column;align-items:center;gap:.9rem;padding:1.5rem 0;text-align:center;}
+.quiz-start-text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:.88rem;color:var(--muted);max-width:480px;line-height:1.6;}
+.quiz-prev-score{font-family:var(--mono);font-size:.65rem;color:var(--green);}
+.quiz-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap;}
+.quiz-round-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.quiz-score-live{font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:500;white-space:nowrap;}
+.quiz-prog-wrap{flex:1;min-width:100px;}
+.quiz-prog-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--green),#6dbf63);border-radius:3px;transition:width .35s ease;}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.match-col{display:flex;flex-direction:column;gap:.5rem;}
+.match-col-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem;}
+.match-item{padding:.55rem .9rem;border:2px solid var(--border);border-radius:7px;cursor:pointer;transition:all .18s;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:.88rem;user-select:none;}
+.match-item:hover{border-color:var(--border2);}
+.match-item.selected{border-color:var(--blue);background:var(--blue-lt);color:var(--blue);}
+.match-item.correct{border-color:var(--green);background:var(--green-lt);color:var(--green);pointer-events:none;}
+.match-item.wrong{border-color:var(--red);background:#fdf0ee;color:var(--red);animation:shake .3s ease;pointer-events:none;}
+.match-item.disabled{opacity:.4;pointer-events:none;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+.match-progress{font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-bottom:.8rem;}
+.mc-question{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:1.1rem;font-weight:700;color:var(--blue);margin-bottom:.3rem;}
+.mc-pron{font-family:var(--mono);font-size:.62rem;color:var(--muted);margin-bottom:1rem;}
+.mc-prompt{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;}
+.mc-options{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.mc-opt{padding:.6rem 1rem;border:2px solid var(--border);border-radius:7px;cursor:pointer;transition:all .18s;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:.86rem;text-align:left;background:var(--surface);}
+.mc-opt:hover{border-color:var(--border2);}
+.mc-opt.correct{border-color:var(--green);background:var(--green-lt);color:var(--green);pointer-events:none;}
+.mc-opt.wrong{border-color:var(--red);background:#fdf0ee;color:var(--red);pointer-events:none;}
+.mc-opt.reveal{border-color:var(--green);background:var(--green-lt);color:var(--green);pointer-events:none;}
+.mc-feedback{font-family:var(--mono);font-size:.7rem;margin-top:.7rem;min-height:1.2rem;}
+.mc-feedback.ok{color:var(--green);}
+.mc-feedback.bad{color:var(--red);}
+.mc-next{margin-top:.9rem;}
+.type-question{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:1rem;color:var(--muted);margin-bottom:.2rem;}
+.type-meaning{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:1.3rem;font-weight:700;color:#000;margin-bottom:1rem;}
+.type-input-wrap{display:flex;gap:.5rem;align-items:center;}
+.type-input{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:1rem;padding:.5rem .8rem;border:2px solid var(--border);border-radius:7px;outline:none;transition:border-color .15s;width:220px;}
+.type-input:focus{border-color:var(--blue);}
+.type-input.correct{border-color:var(--green);background:var(--green-lt);}
+.type-input.wrong{border-color:var(--red);background:#fdf0ee;}
+.type-feedback{font-family:var(--mono);font-size:.7rem;margin-top:.6rem;min-height:1.1rem;}
+.type-feedback.ok{color:var(--green);}
+.type-feedback.bad{color:var(--red);}
+.type-hint{font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-top:.4rem;}
+.quiz-result-score{font-family:var(--disp);font-size:3.5rem;color:var(--green);line-height:1;margin-bottom:.4rem;text-align:center;}
+.quiz-result-msg{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:.9rem;color:var(--muted);text-align:center;margin-bottom:1rem;}
+.quiz-wrong-list{display:flex;flex-direction:column;gap:.35rem;max-width:500px;margin:0 auto;}
+.wrong-item{display:flex;gap:.6rem;align-items:baseline;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:.82rem;}
+.wrong-word{font-weight:700;color:var(--red);min-width:100px;}
+.wrong-meaning{color:var(--muted);}
+.quiz-section-title{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
+.type-example{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:.82rem;color:var(--muted);font-style:italic;margin-top:.5rem;line-height:1.5;}
+.type-example b{font-style:normal;color:var(--blue);}
+.quiz-next-btn{margin-top:.9rem;}
+.quiz-counter{font-family:var(--mono);font-size:.62rem;color:var(--muted);margin-bottom:.6rem;}
+.match-done-msg{font-family:var(--mono);font-size:.72rem;color:var(--green);margin-top:.8rem;text-align:center;}
 
-.block {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--r); box-shadow: var(--sh);
-  transition: border-color .15s; overflow: hidden;
-}
-.block:hover { border-color: var(--border2); }
-.block.done { background: var(--done); }
-.block.done .bsubject { text-decoration: line-through; opacity: .4; }
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--text);color:var(--bg);font-family:var(--mono);font-size:.66rem;padding:.48rem .88rem;border-radius:6px;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;z-index:999;}
+.toast.show{opacity:1;transform:translateY(0);}
 
-.block-grid { display: grid; grid-template-columns: 34px 1fr auto; align-items: stretch; }
+/* modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surface);border-radius:12px;padding:1.6rem;min-width:280px;max-width:380px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.2);transform:translateY(12px);transition:transform .2s;}
+.modal-bg.open .modal{transform:translateY(0);}
+.modal h3{font-family:var(--play);font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+.modal-row{display:flex;gap:.5rem;margin-bottom:.5rem;}
+.modal-input{flex:1;font-family:var(--mono);font-size:.72rem;padding:.35rem .55rem;border:1px solid var(--border);border-radius:5px;background:var(--bg);outline:none;transition:border-color .15s;}
+.modal-input:focus{border-color:var(--green);}
+.modal-btns{display:flex;gap:.5rem;margin-top:1rem;justify-content:flex-end;}
 
-.bcheck {
-  display: flex; align-items: center; justify-content: center;
-  padding: 0 0 0 .7rem; cursor: pointer;
-}
-.bcirc {
-  width: 17px; height: 17px; border-radius: 50%;
-  border: 2px solid var(--border2);
-  display: flex; align-items: center; justify-content: center;
-  transition: all .15s; color: transparent; flex-shrink: 0;
-}
-.block.done .bcirc { background: var(--green); border-color: var(--green); color: #fff; }
-
-.bcontent { padding: .62rem .5rem; display: flex; flex-direction: column; gap: .26rem; min-width: 0; }
-
-.bsubject {
-  font-family: var(--play); font-size: .88rem; font-weight: 400;
-  color: var(--text); background: none; border: none; outline: none;
-  width: 100%; padding: 0; line-height: 1.3; cursor: text;
-}
-.bsubject::placeholder { color: var(--border2); font-style: italic; }
-
-.brow2 { display: flex; align-items: center; gap: .38rem; flex-wrap: wrap; }
-
-.time-grp { display: flex; align-items: center; gap: .2rem; }
-.tsep { color: var(--muted); font-size: .68rem; }
-.tinput {
-  font-family: var(--mono); font-size: .67rem; color: var(--green);
-  background: var(--green-lt); border: 1px solid transparent;
-  border-radius: 4px; padding: .15rem .32rem;
-  outline: none; width: 92px; transition: border-color .15s;
-}
-.tinput:focus { border-color: var(--green); }
-
-.tag-in {
-  font-family: var(--mono); font-size: .64rem; color: var(--amber);
-  background: var(--amber-lt); border: 1px solid transparent;
-  border-radius: 4px; padding: .15rem .4rem;
-  outline: none; width: 84px; transition: border-color .15s;
-}
-.tag-in:focus { border-color: var(--amber); }
-.tag-in::placeholder { color: #c89040; opacity: .55; }
-
-.dur-pill {
-  font-size: .6rem; font-weight: 500; letter-spacing: .04em;
-  color: var(--muted); background: var(--bg);
-  border: 1px solid var(--border); border-radius: 3px;
-  padding: .1rem .34rem; white-space: nowrap;
-}
-
-.bnote {
-  font-family: var(--mono); font-size: .67rem; font-style: italic;
-  color: var(--muted); background: none; border: none; outline: none;
-  width: 100%; resize: none; line-height: 1.55; overflow: hidden; min-height: 0;
-}
-.bnote::placeholder { color: var(--border2); }
-
-.bactions {
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: flex-start; padding: .5rem .5rem .5rem 0; gap: .2rem;
-}
-.ibtn {
-  background: none; border: none; color: var(--border2);
-  cursor: pointer; padding: .2rem; border-radius: 4px;
-  display: flex; align-items: center; justify-content: center;
-  transition: color .15s, background .15s; line-height: 0;
-}
-.ibtn:hover { color: var(--red); background: #fdf0ee; }
-
-/* empty */
-.empty {
-  text-align: center; padding: 3rem 2rem; color: var(--muted);
-  border: 2px dashed var(--border); border-radius: var(--r);
-}
-.empty-t { font-family: var(--play); font-size: .95rem; font-style: italic; }
-.empty p { font-size: .72rem; margin-top: .35rem; }
-
-/* toast */
-.toast {
-  position: fixed; bottom: 2rem; right: 2rem;
-  background: var(--text); color: var(--bg);
-  font-family: var(--mono); font-size: .67rem;
-  padding: .5rem .9rem; border-radius: 6px;
-  opacity: 0; transform: translateY(8px);
-  transition: all .2s; pointer-events: none; z-index: 99;
-}
-.toast.show { opacity: 1; transform: translateY(0); }
-
-/* ── responsive ── */
-@media(max-width:700px){
-  .hero-inner { grid-template-columns: 1fr; gap: 1.4rem; }
-  .hero-divider { display: none; }
-  .hero-left,.hero-center,.hero-right { padding: 0; }
-  .hero-center { border-top: 1px solid var(--hairline); padding-top: 1rem; }
-  .hero-right { border-top: 1px solid var(--hairline); padding-top: 1rem; }
-  .hero { padding: 1.4rem 1.2rem 1rem; }
-  .main { padding: 1.4rem 1rem 4rem; }
-  .day-stats { display: none; }
+@media(max-width:900px){.grid-3{grid-template-columns:1fr 1fr;}.grid-2{grid-template-columns:1fr;}}
+@media(max-width:640px){
+  .hero-inner{grid-template-columns:1fr;gap:1.2rem;}.hdiv{display:none;}
+  .hero-left,.hero-center,.hero-right{padding:0;}
+  .hero-center,.hero-right{border-top:1px solid var(--hairline);padding-top:.9rem;}
+  .hero{padding:1.3rem 1.2rem 1rem;}.main{padding:1.4rem 1rem 4rem;}
+  .grid-2,.grid-3{grid-template-columns:1fr;}.day-stats{display:none;}
 }
 </style>
 </head>
 <body>
 
-<!-- ══════════ HERO ══════════ -->
 <div class="hero">
   <div class="hero-glow"></div>
   <div class="hero-inner">
-
-    <!-- YKS + countdown -->
     <div class="hero-left">
-      <div class="yks-eyebrow">Türkiye Yükseköğretim Kurumları Sınavı</div>
+      <div class="yks-eye">Türkiye Yükseköğretim Kurumları Sınavı</div>
       <div class="yks-title">YKS <em>2026</em></div>
       <div class="yks-date" id="exam-date-label">yükleniyor…</div>
       <div class="countdown" id="countdown">
@@ -470,322 +301,933 @@ body {
         <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl">Saniye</span></div>
       </div>
     </div>
-
-    <div class="hero-divider"></div>
-
-    <!-- Türkiye saati -->
+    <div class="hdiv"></div>
     <div class="hero-center">
-      <div class="clock-label">Türkiye Saati</div>
+      <div class="sec-lbl">Türkiye Saati</div>
       <div class="clock-time" id="clock-time">--:--:--</div>
       <div class="clock-date-str" id="clock-date">—</div>
     </div>
-
-    <div class="hero-divider"></div>
-
-    <!-- Kronometre -->
+    <div class="hdiv"></div>
     <div class="hero-right">
-      <div class="timer-label">Kronometre</div>
-      <div class="timer-display" id="timer-display">
-        <span id="timer-main">00:00</span><span class="timer-ms" id="timer-ms">.00</span>
-      </div>
+      <div class="sec-lbl">Kronometre</div>
+      <div class="timer-display" id="timer-display"><span id="timer-main">00:00</span><span class="timer-ms" id="timer-ms">.00</span></div>
+      <div class="pomo-ring" id="pomo-ring" style="display:none">Pomodoro: <span id="pomo-phase">Çalışma</span></div>
       <div class="timer-btns">
         <button class="tbtn go" id="t-start" onclick="timerToggle()">Başlat</button>
-        <button class="tbtn lap" id="t-lap" onclick="timerLap()" disabled>Tur</button>
+        <button class="tbtn" id="t-lap" onclick="timerLap()" disabled>Tur</button>
         <button class="tbtn" id="t-reset" onclick="timerReset()">Sıfırla</button>
       </div>
       <div class="timer-laps" id="timer-laps"></div>
     </div>
-
   </div>
-
-  <!-- progress -->
-  <div class="hero-progress">
-    <span class="hp-lbl">Bugün</span>
-    <div class="hp-track"><div class="hp-fill" id="hp-fill" style="width:0%"></div></div>
-    <span class="hp-lbl" id="hp-pct">%—</span>
-    <span class="hp-lbl">21 Haz</span>
+  <div class="hero-bottom">
+    <div class="hero-progress">
+      <span class="hp-lbl">Bugün</span>
+      <div class="hp-track"><div class="hp-fill" id="hp-fill" style="width:0%"></div></div>
+      <span class="hp-lbl" id="hp-pct">%—</span>
+      <span class="hp-lbl">21 Haz</span>
+    </div>
+    <div class="hero-motto" id="motto">Her geçen saniye bir adım daha yakın.</div>
   </div>
-  <div class="hero-motto" id="motto">Her geçen saniye bir adım daha yakın.</div>
 </div>
 
-<!-- ══════════ SCHEDULE ══════════ -->
 <div class="main">
   <div class="topbar">
-    <div class="page-title">Günlük <strong>Ders Programı</strong></div>
+    <div class="page-title">YKS <strong>Çalışma Paneli</strong></div>
     <div class="today-pill" id="today-pill">—</div>
   </div>
-  <div class="day-tabs" id="day-tabs"></div>
-  <div id="board"></div>
+
+  <div class="grid-full">
+
+    <div class="card">
+      <div class="card-title"><span class="ct-icon">🍅</span> Pomodoro</div>
+      <div class="pomo-display work" id="pomo-display">40:00</div>
+      <div class="pomo-mode" id="pomo-mode">ÇALIŞMA</div>
+      <div class="pomo-prog"><div class="pomo-prog-fill work" id="pomo-prog-fill" style="width:100%"></div></div>
+      <div class="pomo-btns">
+        <button class="lbtn primary" id="pomo-btn" onclick="pomoToggle()">Başlat</button>
+        <button class="lbtn" onclick="pomoReset()">Sıfırla</button>
+        <button class="lbtn" onclick="showPomoSettings()">⚙</button>
+      </div>
+      <div class="pomo-sessions" id="pomo-dots"></div>
+    </div>
+  </div>
+
+  <div class="grid-full">
+    <div class="card vocab-card">
+      <div class="card-title">
+        <span class="ct-icon">📖</span> Günün İngilizce Kelimeleri
+        <span class="vocab-date" id="vocab-date"></span>
+      </div>
+      <div class="vocab-grid" id="vocab-grid"></div>
+    </div>
+  </div>
+
+  <div class="grid-full">
+
+    <div class="card">
+      <div class="card-title"><span class="ct-icon">📝</span> Deneme Takibi</div>
+      <div class="trial-form">
+        <div class="tf-group">
+          <div class="tf-label">Tarih</div>
+          <input class="tf-input md" id="tr-date" type="date">
+        </div>
+        <div class="tf-group">
+          <div class="tf-label">Tür</div>
+          <select class="tf-select" id="tr-type">
+            <option value="TYT">TYT</option>
+            <option value="AYT">AYT</option>
+          </select>
+        </div>
+        <div class="tf-group">
+          <div class="tf-label">Net</div>
+          <input class="tf-input sm" id="tr-net" type="number" step="0.5" placeholder="0">
+        </div>
+        <div class="tf-group">
+          <div class="tf-label">Puan</div>
+          <input class="tf-input sm" id="tr-score" type="number" step="0.1" placeholder="0">
+        </div>
+        <div class="tf-group" style="justify-content:flex-end">
+          <div class="tf-label">&nbsp;</div>
+          <button class="lbtn green" onclick="addTrial()">Ekle</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="trials-table">
+          <thead><tr><th>Tarih</th><th>Tür</th><th>Net</th><th>Puan</th><th>Δ Net</th><th></th></tr></thead>
+          <tbody id="trials-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card grid-full">
+    <div class="card-title"><span class="ct-icon">🗓</span> Günlük Ders Programı</div>
+    <div class="day-tabs" id="day-tabs"></div>
+    <div id="board"></div>
+  </div>
+
+  <div class="card grid-full quiz-card">
+    <div class="card-title"><span class="ct-icon">🧠</span> Günlük Kelime Testi</div>
+    <div id="quiz-container">
+      <div class="quiz-start" id="quiz-start">
+        <div class="quiz-start-text">Bugün öğrendiğin 10 kelimeyi test et. 3 farklı tur: eşleştirme, çoktan seçmeli ve yazma.</div>
+        <button class="lbtn green" onclick="startQuiz()">Teste Başla</button>
+        <div class="quiz-prev-score" id="quiz-prev-score"></div>
+      </div>
+      <div id="quiz-body" style="display:none">
+        <div class="quiz-header">
+          <div class="quiz-round-label" id="quiz-round-label">TUR 1 / 2</div>
+          <div class="quiz-score-live">Puan: <span id="quiz-score-live">0</span></div>
+          <div class="quiz-prog-wrap"><div class="quiz-prog-bar"><div class="quiz-prog-fill" id="quiz-prog-fill" style="width:0%"></div></div></div>
+          <button class="lbtn" onclick="startQuiz()" style="font-size:.58rem;padding:.22rem .6rem;white-space:nowrap">↺ Yeniden Başlat</button>
+        </div>
+        <div id="quiz-question-area"></div>
+      </div>
+      <div id="quiz-result" style="display:none">
+        <div class="quiz-result-score" id="quiz-result-score"></div>
+        <div class="quiz-result-msg" id="quiz-result-msg"></div>
+        <div class="quiz-wrong-list" id="quiz-wrong-list"></div>
+        <button class="lbtn green" onclick="startQuiz()" style="margin-top:1rem">Tekrar Çöz</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="pomo-modal">
+  <div class="modal">
+    <h3>Pomodoro Ayarları</h3>
+    <div class="modal-row">
+      <div style="flex:1">
+        <div class="tf-label" style="margin-bottom:.3rem">Çalışma (dk)</div>
+        <input class="modal-input" id="ps-work" type="number" value="40" min="1" max="90">
+      </div>
+      <div style="flex:1">
+        <div class="tf-label" style="margin-bottom:.3rem">Mola (dk)</div>
+        <input class="modal-input" id="ps-rest" type="number" value="5" min="1" max="30">
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="lbtn" onclick="closePomoSettings()">İptal</button>
+      <button class="lbtn green" onclick="savePomoSettings()">Kaydet</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ══ YKS countdown ══ */
-const EXAM       = new Date('2026-06-21T10:15:00');
-const YEAR_START = new Date(2025,8,1);
-const MOTTOS = [
-  "Her geçen saniye bir adım daha yakın.",
-  "Sabır, zaferin sessiz ortağıdır.",
-  "Bugün ezdiğin o konu, sınav gününde gülen sensin.",
-  "Yorulduğunda neden başladığını hatırla.",
-  "Küçük adımlar, büyük yolculuklar yaratır.",
-  "Dün diktiklerin bugün büyüyor.",
-];
-let mIdx = 0;
-const mottoEl = document.getElementById('motto');
-
-function cycleMotto(){
-  mottoEl.style.opacity='0';
-  setTimeout(()=>{ mIdx=(mIdx+1)%MOTTOS.length; mottoEl.textContent=MOTTOS[mIdx]; mottoEl.style.opacity='1'; },500);
-}
+const EXAM=new Date('2026-06-21T10:15:00');
+const YEAR_START=new Date(2025,8,1);
+const MOTTOS=["Her geçen saniye bir adım daha yakın.","Sabır, zaferin sessiz ortağıdır.","Bugün ezdiğin o konu, sınav gününde gülen sensin.","Yorulduğunda neden başladığını hatırla.","Küçük adımlar, büyük yolculuklar yaratır.","Dün diktiklerin bugün büyüyor.","Başkası uyurken sen çalış.","Sınav seni beklemiyor, ama sen hazır olabilirsin."];
+let mIdx=0;
+const mottoEl=document.getElementById('motto');
+function cycleMotto(){mottoEl.style.opacity='0';setTimeout(()=>{mIdx=(mIdx+1)%MOTTOS.length;mottoEl.textContent=MOTTOS[mIdx];mottoEl.style.opacity='1';},500);}
 setInterval(cycleMotto,7000);
 
-document.getElementById('exam-date-label').textContent =
-  EXAM.toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric',weekday:'long'}) + ' · Saat 10:15';
+document.getElementById('exam-date-label').textContent=EXAM.toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric',weekday:'long'})+' · Saat 10:15';
 
-function pad(n){ return String(n).padStart(2,'0'); }
-
-function cdFlash(id){
-  const el=document.getElementById(id);
-  el.classList.add('flash');
-  setTimeout(()=>el.classList.remove('flash'),140);
-}
+function pad(n){return String(n).padStart(2,'0');}
 
 function updateCountdown(){
-  const now=new Date(), diff=EXAM-now;
-  if(diff<=0){
-    document.getElementById('countdown').innerHTML=
-      '<span style="font-family:var(--disp);font-size:clamp(1rem,3vw,2rem);color:var(--gold);letter-spacing:.05em">Sınav günü! Başarılar 🎯</span>';
-    return;
-  }
+  const now=new Date(),diff=EXAM-now;
+  if(diff<=0){document.getElementById('countdown').innerHTML='<span style="font-family:var(--disp);font-size:2rem;color:var(--gold)">Sınav günü! Başarılar 🎯</span>';return;}
   const pct=Math.max(0,Math.min(100,((now-YEAR_START)/(EXAM-YEAR_START))*100));
   document.getElementById('hp-fill').style.width=pct.toFixed(2)+'%';
   document.getElementById('hp-pct').textContent='%'+pct.toFixed(1);
-
+  function setN(id,str){const el=document.getElementById(id);if(el.textContent!==str){el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),140);el.textContent=str;}}
   const d=Math.floor(diff/86400000);
-  const h=Math.floor((diff%86400000)/3600000);
-  const m=Math.floor((diff%3600000)/60000);
-  const s=Math.floor((diff%60000)/1000);
-
-  function setCD(id,val,str){
-    const el=document.getElementById(id);
-    const next=str??pad(val);
-    if(el.textContent!==next){ cdFlash(id); el.textContent=next; }
-  }
-  setCD('cd-d',d, d>99?String(d):pad(d));
-  setCD('cd-h',h);
-  setCD('cd-m',m);
-  setCD('cd-s',s);
+  setN('cd-d',d>99?String(d):pad(d));
+  setN('cd-h',pad(Math.floor((diff%86400000)/3600000)));
+  setN('cd-m',pad(Math.floor((diff%3600000)/60000)));
+  setN('cd-s',pad(Math.floor((diff%60000)/1000)));
 }
-updateCountdown();
-setInterval(updateCountdown,1000);
+updateCountdown();setInterval(updateCountdown,1000);
 
-/* ══ Türkiye saati ══ */
+/* clock */
 function updateClock(){
-  const now = new Date();
-  const trTime = now.toLocaleTimeString('tr-TR',{timeZone:'Europe/Istanbul',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-  const trDate = now.toLocaleDateString('tr-TR',{timeZone:'Europe/Istanbul',day:'numeric',month:'long',weekday:'long'});
-  document.getElementById('clock-time').textContent = trTime;
-  document.getElementById('clock-date').textContent = trDate;
-  document.getElementById('today-pill').textContent = trDate;
+  const now=new Date();
+  document.getElementById('clock-time').textContent=now.toLocaleTimeString('tr-TR',{timeZone:'Europe/Istanbul',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  const d=now.toLocaleDateString('tr-TR',{timeZone:'Europe/Istanbul',day:'numeric',month:'long',weekday:'long'});
+  document.getElementById('clock-date').textContent=d;
+  document.getElementById('today-pill').textContent=d;
 }
-updateClock();
-setInterval(updateClock,1000);
+updateClock();setInterval(updateClock,1000);
 
-/* ══ Kronometre ══ */
-let tRunning=false, tStart=0, tElapsed=0, tRAF=null, laps=[];
-
+/* ══ KRONOMETRE ══ */
+let tRun=false,tStart=0,tEl=0,tRAF=null,tlaps=[];
 function timerToggle(){
-  if(tRunning){
-    tRunning=false; tElapsed+=Date.now()-tStart;
-    cancelAnimationFrame(tRAF);
-    document.getElementById('timer-display').className='timer-display paused';
-    document.getElementById('t-start').textContent='Devam';
-    document.getElementById('t-start').className='tbtn go';
-  } else {
-    tRunning=true; tStart=Date.now();
-    document.getElementById('timer-display').className='timer-display running';
-    document.getElementById('t-start').textContent='Durdur';
-    document.getElementById('t-start').className='tbtn stop';
-    document.getElementById('t-lap').disabled=false;
-    tTick();
+  if(tRun){tRun=false;tEl+=Date.now()-tStart;cancelAnimationFrame(tRAF);document.getElementById('timer-display').className='timer-display paused';document.getElementById('t-start').textContent='Devam';document.getElementById('t-start').className='tbtn go';}
+  else{tRun=true;tStart=Date.now();document.getElementById('timer-display').className='timer-display running';document.getElementById('t-start').textContent='Durdur';document.getElementById('t-start').className='tbtn stop';document.getElementById('t-lap').disabled=false;tTick();}
+}
+function tTick(){if(!tRun)return;drawT(tEl+(Date.now()-tStart));tRAF=requestAnimationFrame(tTick);}
+function drawT(ms){const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000),cs=Math.floor((ms%1000)/10);document.getElementById('timer-main').textContent=h>0?`${pad(h)}:${pad(m)}:${pad(s)}`:`${pad(m)}:${pad(s)}`;document.getElementById('timer-ms').textContent='.'+pad(cs);}
+function timerLap(){const total=tEl+(tRun?Date.now()-tStart:0);tlaps.unshift(total);document.getElementById('timer-laps').innerHTML=tlaps.map((l,i)=>{const h=Math.floor(l/3600000),m=Math.floor((l%3600000)/60000),s=Math.floor((l%60000)/1000),cs=Math.floor((l%1000)/10);const t=h>0?`${pad(h)}:${pad(m)}:${pad(s)}.${pad(cs)}`:`${pad(m)}:${pad(s)}.${pad(cs)}`;return`<div class="lap-row">TUR ${tlaps.length-i} · ${t}</div>`;}).join('');}
+function timerReset(){tRun=false;tStart=0;tEl=0;tlaps=[];cancelAnimationFrame(tRAF);document.getElementById('timer-display').className='timer-display';document.getElementById('timer-main').textContent='00:00';document.getElementById('timer-ms').textContent='.00';document.getElementById('t-start').textContent='Başlat';document.getElementById('t-start').className='tbtn go';document.getElementById('t-lap').disabled=true;document.getElementById('timer-laps').innerHTML='';}
+
+/* ══ POMODORO ══ */
+let pomoWork=40,pomoRest=5,pomoSessions=4;
+let pomoRunning=false,pomoPhase='work',pomoRemaining=40*60,pomoInterval=null,pomoCount=0;
+function renderPomoDots(){const c=document.getElementById('pomo-dots');c.innerHTML='';for(let i=0;i<pomoSessions;i++){const d=document.createElement('div');d.className='pomo-dot'+(i<pomoCount?' done':'');c.appendChild(d);}}
+function pomoTick(){
+  pomoRemaining--;
+  const total=pomoPhase==='work'?pomoWork*60:pomoRest*60;
+  document.getElementById('pomo-prog-fill').style.width=(pomoRemaining/total*100)+'%';
+  document.getElementById('pomo-display').textContent=pad(Math.floor(pomoRemaining/60))+':'+pad(pomoRemaining%60);
+  if(pomoRemaining<=0){
+    if(pomoPhase==='work'){pomoCount++;renderPomoDots();if(pomoCount>=pomoSessions){pomoCount=0;renderPomoDots();toast('🎉 '+pomoSessions+' pomodoro tamamlandı! Uzun mola hak ettin.');}else{toast('✅ Çalışma bitti! 🍵 Mola zamanı.');}pomoPhase='rest';pomoRemaining=pomoRest*60;document.getElementById('pomo-mode').textContent='MOLA';document.getElementById('pomo-display').className='pomo-display rest';document.getElementById('pomo-prog-fill').className='pomo-prog-fill rest';}
+    else{pomoPhase='work';pomoRemaining=pomoWork*60;document.getElementById('pomo-mode').textContent='ÇALIŞMA';document.getElementById('pomo-display').className='pomo-display work';document.getElementById('pomo-prog-fill').className='pomo-prog-fill work';toast('💪 Mola bitti! Çalışmaya devam.');}
   }
 }
-function tTick(){
-  if(!tRunning)return;
-  drawTimer(tElapsed+(Date.now()-tStart));
-  tRAF=requestAnimationFrame(tTick);
+function pomoToggle(){
+  if(pomoRunning){clearInterval(pomoInterval);pomoRunning=false;document.getElementById('pomo-btn').textContent='Devam';}
+  else{pomoRunning=true;pomoInterval=setInterval(pomoTick,1000);document.getElementById('pomo-btn').textContent='Durdur';}
 }
-function drawTimer(ms){
-  const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000),cs=Math.floor((ms%1000)/10);
-  document.getElementById('timer-main').textContent=h>0?`${pad(h)}:${pad(m)}:${pad(s)}`:`${pad(m)}:${pad(s)}`;
-  document.getElementById('timer-ms').textContent='.'+pad(cs);
+function pomoReset(){clearInterval(pomoInterval);pomoRunning=false;pomoPhase='work';pomoRemaining=pomoWork*60;pomoCount=0;document.getElementById('pomo-btn').textContent='Başlat';document.getElementById('pomo-display').textContent=pad(pomoWork)+':00';document.getElementById('pomo-display').className='pomo-display work';document.getElementById('pomo-mode').textContent='ÇALIŞMA';document.getElementById('pomo-prog-fill').style.width='100%';document.getElementById('pomo-prog-fill').className='pomo-prog-fill work';renderPomoDots();}
+function showPomoSettings(){document.getElementById('pomo-modal').classList.add('open');}
+function closePomoSettings(){document.getElementById('pomo-modal').classList.remove('open');}
+function savePomoSettings(){pomoWork=parseInt(document.getElementById('ps-work').value)||25;pomoRest=parseInt(document.getElementById('ps-rest').value)||5;pomoReset();closePomoSettings();}
+renderPomoDots();
+
+function getTodayKey(){return new Date().toISOString().slice(0,10);}
+function markToday(){}
+
+/* ══ TRIAL TRACKER ══ */
+let trials=JSON.parse(localStorage.getItem('yks-trials')||'[]');
+document.getElementById('tr-date').value=new Date().toISOString().slice(0,10);
+function addTrial(){
+  const date=document.getElementById('tr-date').value;
+  const type=document.getElementById('tr-type').value;
+  const net=parseFloat(document.getElementById('tr-net').value);
+  const score=parseFloat(document.getElementById('tr-score').value)||0;
+  if(!date||isNaN(net)){toast('Tarih ve net giriniz.');return;}
+  trials.push({id:Date.now(),date,type,net,score});
+  trials.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  localStorage.setItem('yks-trials',JSON.stringify(trials));
+  document.getElementById('tr-net').value='';document.getElementById('tr-score').value='';
+  renderTrials();toast('Deneme eklendi!');
 }
-function timerLap(){
-  const total=tElapsed+(tRunning?Date.now()-tStart:0);
-  laps.unshift(total);
-  document.getElementById('timer-laps').innerHTML=laps.map((l,i)=>{
-    const h=Math.floor(l/3600000),m=Math.floor((l%3600000)/60000),s=Math.floor((l%60000)/1000),cs=Math.floor((l%1000)/10);
-    const t=h>0?`${pad(h)}:${pad(m)}:${pad(s)}.${pad(cs)}`:`${pad(m)}:${pad(s)}.${pad(cs)}`;
-    return`<div class="lap-row">TUR ${laps.length-i} · ${t}</div>`;
+function delTrial(id){trials=trials.filter(t=>t.id!==id);localStorage.setItem('yks-trials',JSON.stringify(trials));renderTrials();}
+function renderTrials(){
+  const tbody=document.getElementById('trials-body');
+  if(!trials.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:.8rem;font-style:italic;">Henüz deneme eklenmedi.</td></tr>';return;}
+  tbody.innerHTML=trials.map((t,i)=>{
+    const prev=trials.find((x,xi)=>xi>i&&x.type===t.type);
+    const delta=prev!=null?t.net-prev.net:null;
+    const dStr=delta!=null?(delta>0?`<span class="net-up">+${delta.toFixed(1)}</span>`:delta<0?`<span class="net-dn">${delta.toFixed(1)}</span>`:'—'):'—';
+    const d=new Date(t.date).toLocaleDateString('tr-TR',{day:'numeric',month:'short'});
+    return`<tr><td>${d}</td><td><span class="trial-badge ${t.type==='AYT'?'ayt':''}">${t.type}</span></td><td>${t.net}</td><td>${t.score||'—'}</td><td>${dStr}</td><td><button class="trial-del" onclick="delTrial(${t.id})">✕</button></td></tr>`;
   }).join('');
 }
-function timerReset(){
-  tRunning=false;tStart=0;tElapsed=0;laps=[];
-  cancelAnimationFrame(tRAF);
-  document.getElementById('timer-display').className='timer-display';
-  document.getElementById('timer-main').textContent='00:00';
-  document.getElementById('timer-ms').textContent='.00';
-  document.getElementById('t-start').textContent='Başlat';
-  document.getElementById('t-start').className='tbtn go';
-  document.getElementById('t-lap').disabled=true;
-  document.getElementById('timer-laps').innerHTML='';
+renderTrials();
+
+/* ══ DAILY VOCABULARY ══ */
+let VOCAB_POOL = [];
+
+async function loadVocabPool() {
+  try {
+    const res = await fetch('words.json');
+    VOCAB_POOL = await res.json();
+  } catch(e) {
+    // Tüm kelime listesi buraya eklendi
+    VOCAB_POOL = [
+      {"word":"abandon","pron":"/əˈbændən/","type":"verb","meaning":"terk etmek, bırakmak","example":"Don't {abandon} your goals when things get hard."},
+      {"word":"ability","pron":"/əˈbɪlɪti/","type":"noun","meaning":"yetenek, beceri","example":"Everyone has the {ability} to improve with practice."},
+      {"word":"abolish","pron":"/əˈbɒlɪʃ/","type":"verb","meaning":"kaldırmak, iptal etmek","example":"The law was {abolished} in 1990."},
+      {"word":"absorb","pron":"/əbˈzɔːb/","type":"verb","meaning":"emmek, özümsemek","example":"Read slowly to {absorb} the material properly."},
+      {"word":"abstract","pron":"/ˈæbstrækt/","type":"adjective","meaning":"soyut","example":"Mathematics often deals with {abstract} concepts."},
+      {"word":"abundant","pron":"/əˈbʌndənt/","type":"adjective","meaning":"bol, fazla","example":"There is {abundant} evidence supporting the theory."},
+      {"word":"accelerate","pron":"/əkˈseləreɪt/","type":"verb","meaning":"hızlandırmak","example":"Exercise can {accelerate} your recovery."},
+      {"word":"accurate","pron":"/ˈækjərɪt/","type":"adjective","meaning":"doğru, isabetli","example":"Make sure your calculations are {accurate}."},
+      {"word":"achieve","pron":"/əˈtʃiːv/","type":"verb","meaning":"başarmak, elde etmek","example":"She worked hard to {achieve} her goals."},
+      {"word":"acknowledge","pron":"/əkˈnɒlɪdʒ/","type":"verb","meaning":"kabul etmek, onaylamak","example":"He {acknowledged} his mistake immediately."},
+      {"word":"acquire","pron":"/əˈkwaɪə/","type":"verb","meaning":"edinmek, kazanmak","example":"You {acquire} skills through practice."},
+      {"word":"adapt","pron":"/əˈdæpt/","type":"verb","meaning":"uyum sağlamak","example":"Students must {adapt} to new learning environments."},
+      {"word":"adequate","pron":"/ˈædɪkwɪt/","type":"adjective","meaning":"yeterli, uygun","example":"Make sure you have {adequate} time to prepare."},
+      {"word":"admit","pron":"/ədˈmɪt/","type":"verb","meaning":"kabul etmek, itiraf etmek","example":"He finally {admitted} that he was wrong."},
+      {"word":"adopt","pron":"/əˈdɒpt/","type":"verb","meaning":"benimsemek, kabul etmek","example":"She {adopted} a new study technique."},
+      {"word":"advance","pron":"/ədˈvɑːns/","type":"verb","meaning":"ilerlemek, geliştirmek","example":"Technology continues to {advance} rapidly."},
+      {"word":"affect","pron":"/əˈfekt/","type":"verb","meaning":"etkilemek","example":"Stress can {affect} your performance."},
+      {"word":"affirm","pron":"/əˈfɜːm/","type":"verb","meaning":"doğrulamak, onaylamak","example":"The results {affirm} the original hypothesis."},
+      {"word":"allocate","pron":"/ˈæləkeɪt/","type":"verb","meaning":"tahsis etmek, ayırmak","example":"{Allocate} enough time for each subject."},
+      {"word":"alter","pron":"/ˈɔːltə/","type":"verb","meaning":"değiştirmek, değişmek","example":"The experiment {altered} our understanding."},
+      {"word":"ambiguous","pron":"/æmˈbɪɡjuəs/","type":"adjective","meaning":"belirsiz, çift anlamlı","example":"The question was {ambiguous} and confusing."},
+      {"word":"analyse","pron":"/ˈænəlaɪz/","type":"verb","meaning":"analiz etmek","example":"{Analyse} your mistakes to learn from them."},
+      {"word":"anticipate","pron":"/ænˈtɪsɪpeɪt/","type":"verb","meaning":"önceden görmek, beklemek","example":"Try to {anticipate} exam questions while studying."},
+      {"word":"anxious","pron":"/ˈæŋkʃəs/","type":"adjective","meaning":"endişeli, kaygılı","example":"He felt {anxious} before the exam."},
+      {"word":"apparent","pron":"/əˈpærənt/","type":"adjective","meaning":"açık, görünür","example":"The solution became {apparent} after further study."},
+      {"word":"apply","pron":"/əˈplaɪ/","type":"verb","meaning":"uygulamak, başvurmak","example":"Try to {apply} the rules you've learned."},
+      {"word":"approach","pron":"/əˈprəʊtʃ/","type":"noun","meaning":"yaklaşım, yöntem","example":"Try a different {approach} if the first one fails."},
+      {"word":"appropriate","pron":"/əˈprəʊpriɪt/","type":"adjective","meaning":"uygun, yerinde","example":"Choose an {appropriate} study environment."},
+      {"word":"approximately","pron":"/əˈprɒksɪmɪtli/","type":"adverb","meaning":"yaklaşık olarak","example":"The test takes {approximately} three hours."},
+      {"word":"argue","pron":"/ˈɑːɡjuː/","type":"verb","meaning":"tartışmak, iddia etmek","example":"Historians {argue} about the causes of the war."},
+      {"word":"aspect","pron":"/ˈæspekt/","type":"noun","meaning":"yön, boyut","example":"Consider every {aspect} of the problem."},
+      {"word":"assess","pron":"/əˈses/","type":"verb","meaning":"değerlendirmek","example":"Teachers {assess} students at the end of each term."},
+      {"word":"assume","pron":"/əˈsjuːm/","type":"verb","meaning":"varsaymak","example":"Don't {assume} you know the answer without checking."},
+      {"word":"attempt","pron":"/əˈtempt/","type":"noun","meaning":"girişim, deneme","example":"Every {attempt} brings you closer to success."},
+      {"word":"attitude","pron":"/ˈætɪtjuːd/","type":"noun","meaning":"tutum, tavır","example":"A positive {attitude} helps you learn faster."},
+      {"word":"available","pron":"/əˈveɪləbl/","type":"adjective","meaning":"mevcut, erişilebilir","example":"Free resources are {available} online."},
+      {"word":"aware","pron":"/əˈweə/","type":"adjective","meaning":"farkında, bilinçli","example":"Be {aware} of your strengths and weaknesses."},
+      {"word":"benefit","pron":"/ˈbenɪfɪt/","type":"noun","meaning":"fayda, yarar","example":"Exercise has many health {benefits}."},
+      {"word":"broad","pron":"/brɔːd/","type":"adjective","meaning":"geniş, kapsamlı","example":"Develop a {broad} understanding of the topic."},
+      {"word":"capable","pron":"/ˈkeɪpəbl/","type":"adjective","meaning":"yetenekli, yapabilir","example":"She is {capable} of solving complex problems."},
+      {"word":"cause","pron":"/kɔːz/","type":"noun","meaning":"neden, sebep","example":"What was the {cause} of the experiment's failure?"},
+      {"word":"challenge","pron":"/ˈtʃælɪndʒ/","type":"noun","meaning":"zorluk, meydan okuma","example":"Every {challenge} is a chance to grow."},
+      {"word":"circumstance","pron":"/ˈsɜːkəmstæns/","type":"noun","meaning":"koşul, durum","example":"Success depends on {circumstances} and effort."},
+      {"word":"cite","pron":"/saɪt/","type":"verb","meaning":"alıntı yapmak","example":"Always {cite} your sources in essays."},
+      {"word":"clarify","pron":"/ˈklærɪfaɪ/","type":"verb","meaning":"açıklamak, netleştirmek","example":"Ask the teacher to {clarify} anything unclear."},
+      {"word":"classify","pron":"/ˈklæsɪfaɪ/","type":"verb","meaning":"sınıflandırmak","example":"Scientists {classify} living things into groups."},
+      {"word":"cognitive","pron":"/ˈkɒɡnɪtɪv/","type":"adjective","meaning":"bilişsel","example":"Sleep improves {cognitive} performance."},
+      {"word":"coherent","pron":"/kəʊˈhɪərənt/","type":"adjective","meaning":"tutarlı, mantıklı","example":"Your essay must be {coherent} and well-structured."},
+      {"word":"collapse","pron":"/kəˈlæps/","type":"verb","meaning":"çökmek, yıkılmak","example":"The theory {collapsed} under scrutiny."},
+      {"word":"combine","pron":"/kəmˈbaɪn/","type":"verb","meaning":"birleştirmek","example":"{Combine} different study techniques for best results."},
+      {"word":"complex","pron":"/ˈkɒmpleks/","type":"adjective","meaning":"karmaşık","example":"Break down {complex} problems into smaller parts."},
+      {"word":"component","pron":"/kəmˈpəʊnənt/","type":"noun","meaning":"bileşen, parça","example":"Vocabulary is a key {component} of language learning."},
+      {"word":"concentrate","pron":"/ˈkɒnsntreɪt/","type":"verb","meaning":"odaklanmak","example":"Try to {concentrate} during the lesson."},
+      {"word":"concept","pron":"/ˈkɒnsept/","type":"noun","meaning":"kavram, fikir","example":"This {concept} is difficult to grasp at first."},
+      {"word":"conclude","pron":"/kənˈkluːd/","type":"verb","meaning":"sonuç çıkarmak","example":"We can {conclude} that the hypothesis was correct."},
+      {"word":"condition","pron":"/kənˈdɪʃn/","type":"noun","meaning":"koşul, durum","example":"Study in a quiet {condition} for better focus."},
+      {"word":"confirm","pron":"/kənˈfɜːm/","type":"verb","meaning":"doğrulamak","example":"{Confirm} your understanding by teaching others."},
+      {"word":"conflict","pron":"/ˈkɒnflɪkt/","type":"noun","meaning":"çatışma, anlaşmazlık","example":"There was a {conflict} between the two theories."},
+      {"word":"consequence","pron":"/ˈkɒnsɪkwəns/","type":"noun","meaning":"sonuç, etki","example":"Understand the {consequences} of poor time management."},
+      {"word":"considerable","pron":"/kənˈsɪdərəbl/","type":"adjective","meaning":"önemli miktarda","example":"She made a {considerable} improvement in math."},
+      {"word":"consist","pron":"/kənˈsɪst/","type":"verb","meaning":"oluşmak, -den meydana gelmek","example":"The exam {consists} of three sections."},
+      {"word":"constant","pron":"/ˈkɒnstənt/","type":"adjective","meaning":"sabit, sürekli","example":"Practice requires {constant} effort."},
+      {"word":"construct","pron":"/kənˈstrʌkt/","type":"verb","meaning":"inşa etmek, oluşturmak","example":"{Construct} your argument carefully."},
+      {"word":"context","pron":"/ˈkɒntekst/","type":"noun","meaning":"bağlam","example":"Understanding the {context} helps you grasp meaning."},
+      {"word":"contribute","pron":"/kənˈtrɪbjuːt/","type":"verb","meaning":"katkıda bulunmak","example":"Everyone can {contribute} to the group's success."},
+      {"word":"controversial","pron":"/ˌkɒntrəˈvɜːʃl/","type":"adjective","meaning":"tartışmalı","example":"This is a {controversial} topic in science."},
+      {"word":"convince","pron":"/kənˈvɪns/","type":"verb","meaning":"ikna etmek","example":"The data {convinced} him to change his approach."},
+      {"word":"critical","pron":"/ˈkrɪtɪkl/","type":"adjective","meaning":"eleştirel, kritik","example":"{Critical} thinking is essential for exams."},
+      {"word":"crucial","pron":"/ˈkruːʃl/","type":"adjective","meaning":"çok önemli, kritik","example":"Time management is {crucial} for exam success."},
+      {"word":"deduce","pron":"/dɪˈdjuːs/","type":"verb","meaning":"çıkarım yapmak","example":"From the clues, you can {deduce} the answer."},
+      {"word":"define","pron":"/dɪˈfaɪn/","type":"verb","meaning":"tanımlamak","example":"{Define} the key terms before answering the question."},
+      {"word":"deliberate","pron":"/dɪˈlɪbərɪt/","type":"adjective","meaning":"kasıtlı, bilinçli","example":"{Deliberate} practice improves skills faster."},
+      {"word":"demonstrate","pron":"/ˈdemənstreɪt/","type":"verb","meaning":"göstermek, kanıtlamak","example":"Can you {demonstrate} how this formula works?"},
+      {"word":"derive","pron":"/dɪˈraɪv/","type":"verb","meaning":"türetmek, elde etmek","example":"The word {derives} from Latin."},
+      {"word":"describe","pron":"/dɪˈskraɪb/","type":"verb","meaning":"tanımlamak, açıklamak","example":"{Describe} the process in your own words."},
+      {"word":"despite","pron":"/dɪˈspaɪt/","type":"preposition","meaning":"rağmen","example":"{Despite} the difficulty, she never gave up."},
+      {"word":"determine","pron":"/dɪˈtɜːmɪn/","type":"verb","meaning":"belirlemek, kararlı olmak","example":"Scientists need to {determine} the cause."},
+      {"word":"develop","pron":"/dɪˈveləp/","type":"verb","meaning":"geliştirmek","example":"Reading helps you {develop} critical thinking."},
+      {"word":"discipline","pron":"/ˈdɪsɪplɪn/","type":"noun","meaning":"disiplin","example":"{Discipline} is key to longterm success."},
+      {"word":"discover","pron":"/dɪˈskʌvə/","type":"verb","meaning":"keşfetmek","example":"Scientists {discover} new things every day."},
+      {"word":"discuss","pron":"/dɪˈskʌs/","type":"verb","meaning":"tartışmak","example":"Let's {discuss} the main points of the text."},
+      {"word":"distinct","pron":"/dɪˈstɪŋkt/","type":"adjective","meaning":"belirgin, farklı","example":"The two species have {distinct} characteristics."},
+      {"word":"distribute","pron":"/dɪˈstrɪbjuːt/","type":"verb","meaning":"dağıtmak, yaymak","example":"The teacher {distributed} the exam papers."},
+      {"word":"diverse","pron":"/daɪˈvɜːs/","type":"adjective","meaning":"çeşitli, farklı","example":"The class has a {diverse} range of abilities."},
+      {"word":"dominate","pron":"/ˈdɒmɪneɪt/","type":"verb","meaning":"hâkim olmak","example":"One idea {dominated} the discussion."},
+      {"word":"efficient","pron":"/ɪˈfɪʃnt/","type":"adjective","meaning":"verimli, etkili","example":"This method is more {efficient} than the old one."},
+      {"word":"elaborate","pron":"/ɪˈlæbərɪt/","type":"verb","meaning":"ayrıntılandırmak","example":"Can you {elaborate} on your answer?"},
+      {"word":"eliminate","pron":"/ɪˈlɪmɪneɪt/","type":"verb","meaning":"elemek, ortadan kaldırmak","example":"{Eliminate} wrong answers in multiple choice questions."},
+      {"word":"emerge","pron":"/ɪˈmɜːdʒ/","type":"verb","meaning":"ortaya çıkmak","example":"A pattern began to {emerge} from the data."},
+      {"word":"emphasize","pron":"/ˈemfəsaɪz/","type":"verb","meaning":"vurgulamak","example":"Teachers {emphasize} the importance of revision."},
+      {"word":"enable","pron":"/ɪˈneɪbl/","type":"verb","meaning":"olanak sağlamak","example":"Technology {enables} us to learn anywhere."},
+      {"word":"ensure","pron":"/ɪnˈʃʊə/","type":"verb","meaning":"sağlamak, garantilemek","example":"{Ensure} you understand the question before answering."},
+      {"word":"environment","pron":"/ɪnˈvaɪrənmənt/","type":"noun","meaning":"çevre, ortam","example":"Create a calm study {environment}."},
+      {"word":"essential","pron":"/ɪˈsenʃl/","type":"adjective","meaning":"gerekli, vazgeçilmez","example":"Water is {essential} for all living things."},
+      {"word":"establish","pron":"/ɪˈstæblɪʃ/","type":"verb","meaning":"kurmak, sağlamak","example":"Try to {establish} a daily study routine."},
+      {"word":"estimate","pron":"/ˈestɪmeɪt/","type":"verb","meaning":"tahmin etmek","example":"You can {estimate} the answer to check your work."},
+      {"word":"evaluate","pron":"/ɪˈvæljueɪt/","type":"verb","meaning":"değerlendirmek","example":"{Evaluate} your progress at the end of each week."},
+      {"word":"evidence","pron":"/ˈevɪdəns/","type":"noun","meaning":"kanıt, delil","example":"There is no {evidence} to support that claim."},
+      {"word":"examine","pron":"/ɪɡˈzæmɪn/","type":"verb","meaning":"incelemek","example":"Let's {examine} the data more carefully."},
+      {"word":"expand","pron":"/ɪkˈspænd/","type":"verb","meaning":"genişletmek","example":"Reading helps {expand} your vocabulary."},
+      {"word":"experience","pron":"/ɪkˈspɪəriəns/","type":"noun","meaning":"deneyim, tecrübe","example":"Every mistake is a learning {experience}."},
+      {"word":"experiment","pron":"/ɪkˈsperɪmənt/","type":"noun","meaning":"deney","example":"The {experiment} proved the theory correct."},
+      {"word":"expert","pron":"/ˈekspɜːt/","type":"noun","meaning":"uzman","example":"Consult an {expert} if you're unsure."},
+      {"word":"explicit","pron":"/ɪkˈsplɪsɪt/","type":"adjective","meaning":"açık, net","example":"Give {explicit} instructions to avoid confusion."},
+      {"word":"explore","pron":"/ɪkˈsplɔː/","type":"verb","meaning":"keşfetmek, araştırmak","example":"{Explore} different study techniques to find what works."},
+      {"word":"expose","pron":"/ɪkˈspəʊz/","type":"verb","meaning":"maruz bırakmak, açığa çıkarmak","example":"{Expose} yourself to English every day."},
+      {"word":"express","pron":"/ɪkˈspres/","type":"verb","meaning":"ifade etmek","example":"Writing helps you {express} your thoughts clearly."},
+      {"word":"extensive","pron":"/ɪkˈstensɪv/","type":"adjective","meaning":"kapsamlı, geniş çaplı","example":"{Extensive} reading improves all language skills."},
+      {"word":"external","pron":"/ɪkˈstɜːnl/","type":"adjective","meaning":"dışsal, harici","example":"{External} distractions reduce concentration."},
+      {"word":"factor","pron":"/ˈfæktə/","type":"noun","meaning":"faktör, etken","example":"Motivation is a key {factor} in learning."},
+      {"word":"feature","pron":"/ˈfiːtʃə/","type":"noun","meaning":"özellik, nitelik","example":"A key {feature} of this method is flexibility."},
+      {"word":"flexible","pron":"/ˈfleksɪbl/","type":"adjective","meaning":"esnek","example":"Be {flexible} with your study plan."},
+      {"word":"focus","pron":"/ˈfəʊkəs/","type":"verb","meaning":"odaklanmak","example":"{Focus} on understanding, not memorizing."},
+      {"word":"formula","pron":"/ˈfɔːmjʊlə/","type":"noun","meaning":"formül","example":"Memorize the {formula} and practice applying it."},
+      {"word":"foundation","pron":"/faʊnˈdeɪʃn/","type":"noun","meaning":"temel, altyapı","example":"Mathematics is the {foundation} of many sciences."},
+      {"word":"frequent","pron":"/ˈfriːkwənt/","type":"adjective","meaning":"sık, düzenli","example":"{Frequent} revision helps you remember better."},
+      {"word":"fundamental","pron":"/ˌfʌndəˈmentl/","type":"adjective","meaning":"temel, esaslı","example":"Grammar is {fundamental} to language learning."},
+      {"word":"generate","pron":"/ˈdʒenəreɪt/","type":"verb","meaning":"üretmek, oluşturmak","example":"Solar panels {generate} electricity from sunlight."},
+      {"word":"gradually","pron":"/ˈɡrædʒuəli/","type":"adverb","meaning":"yavaş yavaş","example":"Your English will {gradually} improve with practice."},
+      {"word":"highlight","pron":"/ˈhaɪlaɪt/","type":"verb","meaning":"vurgulamak, öne çıkarmak","example":"{Highlight} key information while reading."},
+      {"word":"hypothesis","pron":"/haɪˈpɒθɪsɪs/","type":"noun","meaning":"hipotez, varsayım","example":"A scientist forms a {hypothesis} before testing it."},
+      {"word":"identify","pron":"/aɪˈdentɪfaɪ/","type":"verb","meaning":"tanımlamak, belirlemek","example":"Can you {identify} the problem?"},
+      {"word":"ignore","pron":"/ɪɡˈnɔː/","type":"verb","meaning":"görmezden gelmek","example":"Don't {ignore} your weak subjects."},
+      {"word":"illustrate","pron":"/ˈɪləstreɪt/","type":"verb","meaning":"örneklemek, açıklamak","example":"Use diagrams to {illustrate} complex ideas."},
+      {"word":"immediate","pron":"/ɪˈmiːdiət/","type":"adjective","meaning":"anlık, hemen olan","example":"There was no {immediate} solution to the problem."},
+      {"word":"implement","pron":"/ˈɪmplɪment/","type":"verb","meaning":"uygulamak","example":"{Implement} a new strategy if the old one isn't working."},
+      {"word":"imply","pron":"/ɪmˈplaɪ/","type":"verb","meaning":"ima etmek, dolaylı anlatmak","example":"The data {implies} a strong correlation."},
+      {"word":"improve","pron":"/ɪmˈpruːv/","type":"verb","meaning":"geliştirmek, iyileştirmek","example":"Reading every day will {improve} your vocabulary."},
+      {"word":"indicate","pron":"/ˈɪndɪkeɪt/","type":"verb","meaning":"göstermek, belirtmek","example":"The data {indicates} a rise in temperature."},
+      {"word":"inevitable","pron":"/ɪnˈevɪtəbl/","type":"adjective","meaning":"kaçınılmaz","example":"Some mistakes are {inevitable} when learning."},
+      {"word":"influence","pron":"/ˈɪnfluəns/","type":"noun","meaning":"etki","example":"Music can {influence} your mood."},
+      {"word":"initial","pron":"/ɪˈnɪʃl/","type":"adjective","meaning":"ilk, başlangıç","example":"The {initial} results were very promising."},
+      {"word":"integrate","pron":"/ˈɪntɪɡreɪt/","type":"verb","meaning":"entegre etmek, bütünleştirmek","example":"Try to {integrate} new vocabulary into sentences."},
+      {"word":"interpret","pron":"/ɪnˈtɜːprɪt/","type":"verb","meaning":"yorumlamak","example":"Learn to {interpret} graphs and charts."},
+      {"word":"investigate","pron":"/ɪnˈvestɪɡeɪt/","type":"verb","meaning":"araştırmak, soruşturmak","example":"Scientists {investigate} phenomena carefully."},
+      {"word":"involve","pron":"/ɪnˈvɒlv/","type":"verb","meaning":"içermek, dahil etmek","example":"The project {involves} a lot of research."},
+      {"word":"justify","pron":"/ˈdʒʌstɪfaɪ/","type":"verb","meaning":"haklı çıkarmak, gerekçelendirmek","example":"Always {justify} your answers with evidence."},
+      {"word":"logical","pron":"/ˈlɒdʒɪkl/","type":"adjective","meaning":"mantıklı","example":"Always give a {logical} reason for your answers."},
+      {"word":"maintain","pron":"/meɪnˈteɪn/","type":"verb","meaning":"sürdürmek, korumak","example":"It's important to {maintain} a healthy diet."},
+      {"word":"major","pron":"/ˈmeɪdʒə/","type":"adjective","meaning":"büyük, önemli","example":"This is a {major} topic in the exam."},
+      {"word":"maximize","pron":"/ˈmæksɪmaɪz/","type":"verb","meaning":"en üst düzeye çıkarmak","example":"{Maximize} your study time by avoiding distractions."},
+      {"word":"memorize","pron":"/ˈmeməraɪz/","type":"verb","meaning":"ezberlemek","example":"Don't just {memorize}; try to understand."},
+      {"word":"method","pron":"/ˈmeθəd/","type":"noun","meaning":"yöntem, metot","example":"Find the study {method} that suits you best."},
+      {"word":"minimize","pron":"/ˈmɪnɪmaɪz/","type":"verb","meaning":"en aza indirmek","example":"{Minimize} distractions while studying."},
+      {"word":"modify","pron":"/ˈmɒdɪfaɪ/","type":"verb","meaning":"değiştirmek, düzenlemek","example":"{Modify} your approach based on feedback."},
+      {"word":"monitor","pron":"/ˈmɒnɪtə/","type":"verb","meaning":"izlemek, takip etmek","example":"{Monitor} your progress weekly."},
+      {"word":"motivate","pron":"/ˈməʊtɪveɪt/","type":"verb","meaning":"motive etmek","example":"Set small goals to {motivate} yourself."},
+      {"word":"necessary","pron":"/ˈnesəsri/","type":"adjective","meaning":"gerekli, zorunlu","example":"Hard work is {necessary} for success."},
+      {"word":"negative","pron":"/ˈneɡətɪv/","type":"adjective","meaning":"olumsuz, negatif","example":"Don't let {negative} thoughts affect your performance."},
+      {"word":"notice","pron":"/ˈnəʊtɪs/","type":"verb","meaning":"fark etmek","example":"Did you {notice} any patterns in the data?"},
+      {"word":"objective","pron":"/əbˈdʒektɪv/","type":"noun","meaning":"hedef, amaç","example":"Set clear {objectives} for each study session."},
+      {"word":"obtain","pron":"/əbˈteɪn/","type":"verb","meaning":"elde etmek","example":"You can {obtain} the results after the test."},
+      {"word":"occur","pron":"/əˈkɜː/","type":"verb","meaning":"gerçekleşmek, olmak","example":"Errors {occur} when you rush."},
+      {"word":"opportunity","pron":"/ˌɒpəˈtjuːnɪti/","type":"noun","meaning":"fırsat","example":"Don't miss this {opportunity} to learn."},
+      {"word":"overcome","pron":"/ˌəʊvəˈkʌm/","type":"verb","meaning":"üstesinden gelmek","example":"You can {overcome} any obstacle with persistence."},
+      {"word":"participate","pron":"/pɑːˈtɪsɪpeɪt/","type":"verb","meaning":"katılmak","example":"Always {participate} actively in class."},
+      {"word":"particular","pron":"/pəˈtɪkjʊlə/","type":"adjective","meaning":"belirli, özel","example":"Pay {particular} attention to this topic."},
+      {"word":"patience","pron":"/ˈpeɪʃns/","type":"noun","meaning":"sabır","example":"{Patience} is essential when learning something new."},
+      {"word":"pattern","pron":"/ˈpætən/","type":"noun","meaning":"kalıp, örüntü","example":"Look for {patterns} when solving math problems."},
+      {"word":"perceive","pron":"/pəˈsiːv/","type":"verb","meaning":"algılamak, fark etmek","example":"How you {perceive} failure affects your growth."},
+      {"word":"perform","pron":"/pəˈfɔːm/","type":"verb","meaning":"gerçekleştirmek","example":"She {performed} well in the test."},
+      {"word":"persist","pron":"/pəˈsɪst/","type":"verb","meaning":"ısrar etmek, devam etmek","example":"{Persist} even when the material seems too hard."},
+      {"word":"precise","pron":"/prɪˈsaɪs/","type":"adjective","meaning":"kesin, isabetli","example":"In science, measurements must be {precise}."},
+      {"word":"predict","pron":"/prɪˈdɪkt/","type":"verb","meaning":"tahmin etmek","example":"Scientists can {predict} weather patterns."},
+      {"word":"prevent","pron":"/prɪˈvent/","type":"verb","meaning":"önlemek","example":"Washing your hands can {prevent} illness."},
+      {"word":"primary","pron":"/ˈpraɪməri/","type":"adjective","meaning":"birincil, temel","example":"The {primary} goal is to understand the concept."},
+      {"word":"principle","pron":"/ˈprɪnsɪpl/","type":"noun","meaning":"ilke, prensip","example":"Learn the {principles} before the exceptions."},
+      {"word":"process","pron":"/ˈprəʊses/","type":"noun","meaning":"süreç","example":"Learning a language is a long {process}."},
+      {"word":"promote","pron":"/prəˈməʊt/","type":"verb","meaning":"teşvik etmek","example":"Exercise {promotes} good mental health."},
+      {"word":"proportion","pron":"/prəˈpɔːʃn/","type":"noun","meaning":"oran, orantı","example":"A large {proportion} of the exam is multiple choice."},
+      {"word":"propose","pron":"/prəˈpəʊz/","type":"verb","meaning":"önermek, ileri sürmek","example":"Scientists {propose} new theories based on evidence."},
+      {"word":"provide","pron":"/prəˈvaɪd/","type":"verb","meaning":"sağlamak, sunmak","example":"The teacher {provided} extra materials."},
+      {"word":"recall","pron":"/rɪˈkɔːl/","type":"verb","meaning":"hatırlamak","example":"Try to {recall} what you read without looking at notes."},
+      {"word":"recognize","pron":"/ˈrekəɡnaɪz/","type":"verb","meaning":"tanımak, fark etmek","example":"Learn to {recognize} common word patterns."},
+      {"word":"reduce","pron":"/rɪˈdjuːs/","type":"verb","meaning":"azaltmak","example":"We need to {reduce} plastic waste."},
+      {"word":"refer","pron":"/rɪˈfɜː/","type":"verb","meaning":"başvurmak, atıfta bulunmak","example":"{Refer} to your notes when revising."},
+      {"word":"reinforce","pron":"/ˌriːɪnˈfɔːs/","type":"verb","meaning":"pekiştirmek, güçlendirmek","example":"Practice {reinforces} what you've learned."},
+      {"word":"relate","pron":"/rɪˈleɪt/","type":"verb","meaning":"ilişkilendirmek","example":"Try to {relate} new information to what you know."},
+      {"word":"relevant","pron":"/ˈreləvənt/","type":"adjective","meaning":"ilgili, alakalı","example":"Focus on {relevant} information when studying."},
+      {"word":"require","pron":"/rɪˈkwaɪə/","type":"verb","meaning":"gerektirmek","example":"This job {requires} a lot of patience."},
+      {"word":"research","pron":"/rɪˈsɜːtʃ/","type":"noun","meaning":"araştırma","example":"Good {research} is the basis of a strong essay."},
+      {"word":"resolve","pron":"/rɪˈzɒlv/","type":"verb","meaning":"çözmek, karara varmak","example":"{Resolve} any confusion before the exam."},
+      {"word":"respond","pron":"/rɪˈspɒnd/","type":"verb","meaning":"yanıt vermek, tepki göstermek","example":"{Respond} to feedback positively."},
+      {"word":"retain","pron":"/rɪˈteɪn/","type":"verb","meaning":"akılda tutmak, muhafaza etmek","example":"Spaced repetition helps you {retain} information longer."},
+      {"word":"reveal","pron":"/rɪˈviːl/","type":"verb","meaning":"açığa çıkarmak","example":"The experiment {revealed} unexpected results."},
+      {"word":"revise","pron":"/rɪˈvaɪz/","type":"verb","meaning":"tekrar etmek, gözden geçirmek","example":"{Revise} your notes at least three times before the exam."},
+      {"word":"routine","pron":"/ruːˈtiːn/","type":"noun","meaning":"rutin, alışkanlık","example":"Build a daily study {routine}."},
+      {"word":"schedule","pron":"/ˈʃedjuːl/","type":"noun","meaning":"program, takvim","example":"Follow a {schedule} to manage your time well."},
+      {"word":"significant","pron":"/sɪɡˈnɪfɪkənt/","type":"adjective","meaning":"önemli, anlamlı","example":"There was a {significant} improvement in her grades."},
+      {"word":"similar","pron":"/ˈsɪmɪlə/","type":"adjective","meaning":"benzer","example":"These two concepts are {similar} but not identical."},
+      {"word":"simultaneous","pron":"/ˌsɪmlˈteɪniəs/","type":"adjective","meaning":"eş zamanlı","example":"{Simultaneous} revision of topics helps retention."},
+      {"word":"solution","pron":"/səˈluːʃn/","type":"noun","meaning":"çözüm","example":"We need to find a {solution} to this problem."},
+      {"word":"specific","pron":"/spəˈsɪfɪk/","type":"adjective","meaning":"belirli, özgün","example":"Set {specific} goals for each study session."},
+      {"word":"strategy","pron":"/ˈstrætədʒi/","type":"noun","meaning":"strateji, plan","example":"A good study {strategy} saves time."},
+      {"word":"structure","pron":"/ˈstrʌktʃə/","type":"noun","meaning":"yapı, düzen","example":"The {structure} of this essay is very clear."},
+      {"word":"subsequent","pron":"/ˈsʌbsɪkwənt/","type":"adjective","meaning":"sonraki, ardından gelen","example":"Each {subsequent} attempt was better than the last."},
+      {"word":"sufficient","pron":"/səˈfɪʃnt/","type":"adjective","meaning":"yeterli","example":"Make sure you get {sufficient} sleep before the exam."},
+      {"word":"summarize","pron":"/ˈsʌməraɪz/","type":"verb","meaning":"özetlemek","example":"After reading, {summarize} the main ideas."},
+      {"word":"support","pron":"/səˈpɔːt/","type":"verb","meaning":"desteklemek","example":"Friends {support} each other in difficult times."},
+      {"word":"technique","pron":"/tekˈniːk/","type":"noun","meaning":"teknik, yöntem","example":"The Pomodoro {technique} helps improve focus."},
+      {"word":"thorough","pron":"/ˈθʌrə/","type":"adjective","meaning":"kapsamlı, eksiksiz","example":"Do a {thorough} review before the final exam."},
+      {"word":"transfer","pron":"/ˈtrænsfɜː/","type":"verb","meaning":"aktarmak, transfer etmek","example":"Try to {transfer} skills from one subject to another."},
+      {"word":"transform","pron":"/trænsˈfɔːm/","type":"verb","meaning":"dönüştürmek","example":"Good habits can {transform} your academic performance."},
+      {"word":"typical","pron":"/ˈtɪpɪkl/","type":"adjective","meaning":"tipik","example":"This is a {typical} exam question."},
+      {"word":"ultimately","pron":"/ˈʌltɪmətli/","type":"adverb","meaning":"sonuçta","example":"{Ultimately}, consistent effort leads to success."},
+      {"word":"undergo","pron":"/ˌʌndəˈɡəʊ/","type":"verb","meaning":"geçirmek, maruz kalmak","example":"Students {undergo} a lot of pressure before exams."},
+      {"word":"unique","pron":"/juːˈniːk/","type":"adjective","meaning":"eşsiz, benzersiz","example":"Everyone has a {unique} way of learning."},
+      {"word":"utilize","pron":"/ˈjuːtɪlaɪz/","type":"verb","meaning":"kullanmak, yararlanmak","example":"{Utilize} every free minute for revision."},
+      {"word":"valid","pron":"/ˈvælɪd/","type":"adjective","meaning":"geçerli, haklı","example":"Your argument is only {valid} with supporting evidence."},
+      {"word":"valuable","pron":"/ˈvæljuəbl/","type":"adjective","meaning":"değerli","example":"Time is the most {valuable} resource you have."},
+      {"word":"variable","pron":"/ˈveəriəbl/","type":"noun","meaning":"değişken","example":"Identify the {variables} in the experiment."},
+      {"word":"various","pron":"/ˈveəriəs/","type":"adjective","meaning":"çeşitli","example":"There are {various} ways to solve this equation."},
+      {"word":"verify","pron":"/ˈverɪfaɪ/","type":"verb","meaning":"doğrulamak","example":"Always {verify} your answers if you have time."},
+      {"word":"vital","pron":"/ˈvaɪtl/","type":"adjective","meaning":"hayati, çok önemli","example":"Sleep is {vital} for memory consolidation."},
+      {"word":"weakness","pron":"/ˈwiːknəs/","type":"noun","meaning":"zayıflık, eksiklik","example":"Identify your {weaknesses} and work on them."},
+      {"word":"willing","pron":"/ˈwɪlɪŋ/","type":"adjective","meaning":"istekli, razı","example":"You need to be {willing} to make mistakes to learn."},
+      {"word":"abstract","pron":"/ˈæbstrækt/","type":"noun","meaning":"özet, hulasa","example":"Read the {abstract} of a paper before the full text."},
+      {"word":"accumulate","pron":"/əˈkjuːmjʊleɪt/","type":"verb","meaning":"biriktirmek, birikmek","example":"Knowledge {accumulates} over time with practice."},
+      {"word":"advocate","pron":"/ˈædvəkeɪt/","type":"verb","meaning":"savunmak, desteklemek","example":"Many experts {advocate} spaced repetition for learning."},
+      {"word":"aggregate","pron":"/ˈæɡrɪɡɪt/","type":"noun","meaning":"toplam, bütün","example":"The {aggregate} score determines your ranking."},
+      {"word":"alternative","pron":"/ɔːlˈtɜːnətɪv/","type":"noun","meaning":"alternatif, seçenek","example":"Is there an {alternative} method to solve this?"},
+      {"word":"ambition","pron":"/æmˈbɪʃn/","type":"noun","meaning":"hırs, hedef","example":"Her {ambition} drove her to study harder."},
+      {"word":"analogy","pron":"/əˈnælədʒi/","type":"noun","meaning":"analoji, benzetme","example":"The teacher used an {analogy} to explain the concept."},
+      {"word":"annual","pron":"/ˈænjuəl/","type":"adjective","meaning":"yıllık","example":"The {annual} exam tests everything learned that year."},
+      {"word":"approximate","pron":"/əˈprɒksɪmɪt/","type":"adjective","meaning":"yaklaşık","example":"Give an {approximate} answer if you're unsure."},
+      {"word":"arise","pron":"/əˈraɪz/","type":"verb","meaning":"ortaya çıkmak","example":"Problems often {arise} when you rush."},
+      {"word":"assert","pron":"/əˈsɜːt/","type":"verb","meaning":"ileri sürmek, iddia etmek","example":"The researcher {asserted} a new hypothesis."},
+      {"word":"assign","pron":"/əˈsaɪn/","type":"verb","meaning":"atamak, vermek","example":"The teacher {assigned} homework every day."},
+      {"word":"assist","pron":"/əˈsɪst/","type":"verb","meaning":"yardım etmek","example":"Study groups can {assist} you in difficult topics."},
+      {"word":"assumption","pron":"/əˈsʌmpʃn/","type":"noun","meaning":"varsayım","example":"Check your {assumptions} before drawing conclusions."},
+      {"word":"attach","pron":"/əˈtætʃ/","type":"verb","meaning":"eklemek, bağlamak","example":"{Attach} importance to understanding, not just memorizing."},
+      {"word":"attain","pron":"/əˈteɪn/","type":"verb","meaning":"ulaşmak, elde etmek","example":"Work hard to {attain} your academic goals."},
+      {"word":"attribute","pron":"/əˈtrɪbjuːt/","type":"verb","meaning":"atfetmek, bağlamak","example":"His success can be {attributed} to hard work."},
+      {"word":"automatically","pron":"/ˌɔːtəˈmætɪkli/","type":"adverb","meaning":"otomatik olarak","example":"With enough practice, spelling becomes {automatic}."},
+      {"word":"balance","pron":"/ˈbæləns/","type":"noun","meaning":"denge","example":"Maintain a {balance} between study and rest."},
+      {"word":"barrier","pron":"/ˈbæriə/","type":"noun","meaning":"engel, bariyer","example":"Fear is the biggest {barrier} to learning."},
+      {"word":"bias","pron":"/ˈbaɪəs/","type":"noun","meaning":"önyargı, taraflılık","example":"Avoid {bias} when evaluating sources."},
+      {"word":"capacity","pron":"/kəˈpæsɪti/","type":"noun","meaning":"kapasite, yetenek","example":"The human brain has an enormous {capacity} for learning."},
+      {"word":"category","pron":"/ˈkætəɡəri/","type":"noun","meaning":"kategori, tür","example":"Sort vocabulary into {categories} to learn more easily."},
+      {"word":"certain","pron":"/ˈsɜːtn/","type":"adjective","meaning":"belirli, kesin","example":"Be {certain} of the facts before you write."},
+      {"word":"characteristic","pron":"/ˌkærɪktəˈrɪstɪk/","type":"noun","meaning":"özellik, nitelik","example":"List the {characteristics} of each theory."},
+      {"word":"coincide","pron":"/ˌkəʊɪnˈsaɪd/","type":"verb","meaning":"çakışmak, aynı zamana denk gelmek","example":"The two exam dates {coincide}."},
+      {"word":"collaborate","pron":"/kəˈlæbəreɪt/","type":"verb","meaning":"iş birliği yapmak","example":"Students who {collaborate} often perform better."},
+      {"word":"commitment","pron":"/kəˈmɪtmənt/","type":"noun","meaning":"bağlılık, kararlılık","example":",{Commitment} to daily practice pays off over time."},
+      {"word":"communicate","pron":"/kəˈmjuːnɪkeɪt/","type":"verb","meaning":"iletişim kurmak","example":"Reading helps you {communicate} more effectively."},
+      {"word":"comparison","pron":"/kəmˈpærɪsn/","type":"noun","meaning":"karşılaştırma","example":"Draw a {comparison} between the two methods."},
+      {"word":"competent","pron":"/ˈkɒmpɪtənt/","type":"adjective","meaning":"yetkin, becerikli","example":"A {competent} student reviews notes regularly."},
+      {"word":"comprehend","pron":"/ˌkɒmprɪˈhend/","type":"verb","meaning":"kavramak, anlamak","example":"Read slowly to {comprehend} the full meaning."},
+      {"word":"consistent","pron":"/kənˈsɪstənt/","type":"adjective","meaning":"tutarlı, düzenli","example":"Be {consistent} with your study habits."},
+      {"word":"contrast","pron":"/ˈkɒntrɑːst/","type":"noun","meaning":"zıtlık, karşıtlık","example":"Draw a {contrast} between the two theories."},
+      {"word":"correlate","pron":"/ˈkɒrəleɪt/","type":"verb","meaning":"ilişkilendirmek, korelasyon göstermek","example":"Effort {correlates} strongly with results."},
+      {"word":"creative","pron":"/kriˈeɪtɪv/","type":"adjective","meaning":"yaratıcı","example":"Use {creative} methods to memorize vocabulary."},
+      {"word":"curiosity","pron":"/ˌkjʊəriˈɒsɪti/","type":"noun","meaning":"merak","example":"{Curiosity} is the engine of learning."},
+      {"word":"deadline","pron":"/ˈdedlaɪn/","type":"noun","meaning":"son teslim tarihi","example":"Work backwards from the {deadline} to plan your time."},
+      {"word":"debate","pron":"/dɪˈbeɪt/","type":"noun","meaning":"tartışma, münazara","example":"There is ongoing {debate} about this theory."},
+      {"word":"decrease","pron":"/dɪˈkriːs/","type":"verb","meaning":"azalmak, düşmek","example":"Fatigue {decreases} your ability to concentrate."},
+      {"word":"deepen","pron":"/ˈdiːpən/","type":"verb","meaning":"derinleştirmek","example":"Ask why, not just what, to {deepen} understanding."},
+      {"word":"deny","pron":"/dɪˈnaɪ/","type":"verb","meaning":"reddetmek, inkâr etmek","example":"Don't {deny} your weaknesses; address them."},
+      {"word":"detect","pron":"/dɪˈtekt/","type":"verb","meaning":"tespit etmek, fark etmek","example":"Learn to {detect} patterns in exam questions."},
+      {"word":"devote","pron":"/dɪˈvəʊt/","type":"verb","meaning":"adamak, ayırmak","example":"{Devote} at least one hour a day to reading."},
+      {"word":"diagram","pron":"/ˈdaɪəɡræm/","type":"noun","meaning":"diyagram, şema","example":"Draw a {diagram} to visualize the concept."},
+      {"word":"dimension","pron":"/daɪˈmenʃn/","type":"noun","meaning":"boyut, ölçüt","example":"Consider all {dimensions} of the problem."},
+      {"word":"empirical","pron":"/ɪmˈpɪrɪkl/","type":"adjective","meaning":"ampirik, deneysel","example":"{Empirical} evidence is essential in science."},
+      {"word":"encounter","pron":"/ɪnˈkaʊntə/","type":"verb","meaning":"karşılaşmak","example":"You will {encounter} new words every day."},
+      {"word":"engage","pron":"/ɪnˈɡeɪdʒ/","type":"verb","meaning":"dahil olmak, ilgilenmek","example":"{Engage} actively with the material you study."},
+      {"word":"enhance","pron":"/ɪnˈhɑːns/","type":"verb","meaning":"artırmak, geliştirmek","example":"Good sleep {enhances} memory consolidation."},
+      {"word":"enormous","pron":"/ɪˈnɔːməs/","type":"adjective","meaning":"çok büyük, muazzam","example":"There is an {enormous} amount to learn before the exam."},
+      {"word":"equivalent","pron":"/ɪˈkwɪvələnt/","type":"adjective","meaning":"eşdeğer, denk","example":"One hour of focused study is {equivalent} to three hours of distracted study."},
+      {"word":"exceed","pron":"/ɪkˈsiːd/","type":"verb","meaning":"aşmak, geçmek","example":"Try to {exceed} your previous best score."},
+      {"word":"exclude","pron":"/ɪkˈskluːd/","type":"verb","meaning":"dışlamak, hariç tutmak","example":"Don't {exclude} any topic from your revision."},
+      {"word":"exhibit","pron":"/ɪɡˈzɪbɪt/","type":"verb","meaning":"sergilemek, göstermek","example":"Students who succeed {exhibit} consistent habits."},
+      {"word":"expectation","pron":"/ˌekspekˈteɪʃn/","type":"noun","meaning":"beklenti","example":"Set realistic {expectations} for yourself."},
+      {"word":"extend","pron":"/ɪkˈstend/","type":"verb","meaning":"uzatmak, genişletmek","example":"{Extend} your knowledge beyond the textbook."},
+      {"word":"extract","pron":"/ɪkˈstrækt/","type":"verb","meaning":"çıkarmak, ayıklamak","example":"Learn to {extract} key information from a text."},
+      {"word":"facilitate","pron":"/fəˈsɪlɪteɪt/","type":"verb","meaning":"kolaylaştırmak","example":"Good notes {facilitate} easier revision."},
+      {"word":"failure","pron":"/ˈfeɪljə/","type":"noun","meaning":"başarısızlık","example":",{Failure} is only permanent if you stop trying."},
+      {"word":"familiar","pron":"/fəˈmɪliə/","type":"adjective","meaning":"tanıdık, aşina","example":"Make yourself {familiar} with the exam format."},
+      {"word":"feedback","pron":"/ˈfiːdbæk/","type":"noun","meaning":"geri bildirim","example":"Use {feedback} to improve your work."},
+      {"word":"figure","pron":"/ˈfɪɡə/","type":"noun","meaning":"rakam, şekil","example":"Refer to the {figure} below for the data."},
+      {"word":"fluent","pron":"/ˈfluːənt/","type":"adjective","meaning":"akıcı","example":"Daily practice helps you become {fluent}."},
+      {"word":"formal","pron":"/ˈfɔːml/","type":"adjective","meaning":"resmi, biçimsel","example":"Use {formal} language in academic writing."},
+      {"word":"framework","pron":"/ˈfreɪmwɜːk/","type":"noun","meaning":"çerçeve, iskelet","example":"Build a {framework} before filling in the details."},
+      {"word":"function","pron":"/ˈfʌŋkʃn/","type":"noun","meaning":"işlev, görev","example":"Understand the {function} of each word in a sentence."},
+      {"word":"global","pron":"/ˈɡləʊbl/","type":"adjective","meaning":"küresel, genel","example":"English is a {global} language."},
+      {"word":"goal","pron":"/ɡəʊl/","type":"noun","meaning":"hedef, amaç","example":"Set a daily {goal} for vocabulary learning."},
+      {"word":"gradual","pron":"/ˈɡrædʒuəl/","type":"adjective","meaning":"kademeli, yavaş yavaş olan","example":"Learning is a {gradual} process."},
+      {"word":"graph","pron":"/ɡrɑːf/","type":"noun","meaning":"grafik","example":"Interpret the {graph} carefully before answering."},
+      {"word":"grasp","pron":"/ɡrɑːsp/","type":"verb","meaning":"kavramak, anlamak","example":"It takes time to {grasp} complex grammar rules."},
+      {"word":"habit","pron":"/ˈhæbɪt/","type":"noun","meaning":"alışkanlık","example":"Build good study {habits} early."},
+      {"word":"impact","pron":"/ˈɪmpækt/","type":"noun","meaning":"etki, darbe","example":"Sleep has a huge {impact} on exam performance."},
+      {"word":"incentive","pron":"/ɪnˈsentɪv/","type":"noun","meaning":"teşvik, güdü","example":"Reward yourself as an {incentive} to study."},
+      {"word":"increase","pron":"/ɪnˈkriːs/","type":"verb","meaning":"artmak, yükselmek","example":"Your score will {increase} with regular practice."},
+      {"word":"independent","pron":"/ˌɪndɪˈpendənt/","type":"adjective","meaning":"bağımsız","example":"Be an {independent} learner."},
+      {"word":"inference","pron":"/ˈɪnfərəns/","type":"noun","meaning":"çıkarım","example":"Make an {inference} based on the available data."},
+      {"word":"insight","pron":"/ˈɪnsaɪt/","type":"noun","meaning":"kavrayış, iç görü","example":"This book offers great {insight} into the topic."},
+      {"word":"intention","pron":"/ɪnˈtenʃn/","type":"noun","meaning":"niyet, amaç","example":"Study with clear {intention} to retain more."},
+      {"word":"interaction","pron":"/ˌɪntərˈækʃn/","type":"noun","meaning":"etkileşim","example":"{Interaction} with native speakers improves fluency."},
+      {"word":"internal","pron":"/ɪnˈtɜːnl/","type":"adjective","meaning":"iç, dahili","example":"An {internal} motivation lasts longer than external pressure."},
+      {"word":"interval","pron":"/ˈɪntəvl/","type":"noun","meaning":"aralık, süre","example":"Study at regular {intervals} for best retention."},
+      {"word":"issue","pron":"/ˈɪʃuː/","type":"noun","meaning":"sorun, mesele","example":"Address each {issue} in your exam answer separately."},
+      {"word":"knowledge","pron":"/ˈnɒlɪdʒ/","type":"noun","meaning":"bilgi","example":"Build your {knowledge} day by day."},
+      {"word":"limitation","pron":"/ˌlɪmɪˈteɪʃn/","type":"noun","meaning":"kısıtlama, sınır","example":"Acknowledge the {limitations} of your study method."},
+      {"word":"logic","pron":"/ˈlɒdʒɪk/","type":"noun","meaning":"mantık","example":"Apply {logic} to solve problems step by step."},
+      {"word":"measurable","pron":"/ˈmeʒərəbl/","type":"adjective","meaning":"ölçülebilir","example":"Set {measurable} goals to track progress."},
+      {"word":"mechanism","pron":"/ˈmekənɪzəm/","type":"noun","meaning":"mekanizma","example":"Understanding the {mechanism} helps solve the problem."},
+      {"word":"mental","pron":"/ˈmentl/","type":"adjective","meaning":"zihinsel","example":"Exercise improves {mental} health and focus."},
+      {"word":"motivation","pron":"/ˌməʊtɪˈveɪʃn/","type":"noun","meaning":"motivasyon","example":"Find your source of {motivation} and hold on to it."},
+      {"word":"neutral","pron":"/ˈnjuːtrəl/","type":"adjective","meaning":"tarafsız, nötr","example":"Try to stay {neutral} when evaluating arguments."},
+      {"word":"norm","pron":"/nɔːm/","type":"noun","meaning":"kural, norm","example":"Regular revision is the {norm} for top students."},
+      {"word":"notion","pron":"/ˈnəʊʃn/","type":"noun","meaning":"kavram, fikir","example":"The {notion} of spaced repetition is well supported."},
+      {"word":"observe","pron":"/əbˈzɜːv/","type":"verb","meaning":"gözlemlemek","example":"{Observe} how experts solve problems."},
+      {"word":"obstacle","pron":"/ˈɒbstəkl/","type":"noun","meaning":"engel, zorluk","example":"Treat every {obstacle} as a learning opportunity."},
+      {"word":"outcome","pron":"/ˈaʊtkʌm/","type":"noun","meaning":"sonuç, çıktı","example":"Focus on the process, not just the {outcome}."},
+      {"word":"output","pron":"/ˈaʊtpʊt/","type":"noun","meaning":"çıktı, üretim","example":"Increase your daily study {output} gradually."},
+      {"word":"outline","pron":"/ˈaʊtlaɪn/","type":"verb","meaning":"ana hatlarıyla belirtmek","example":"{Outline} your essay before writing it."},
+      {"word":"passive","pron":"/ˈpæsɪv/","type":"adjective","meaning":"pasif","example":"Avoid {passive} learning; engage actively."},
+      {"word":"pause","pron":"/pɔːz/","type":"verb","meaning":"duraklamak, mola vermek","example":"{Pause} and reflect after each section."},
+      {"word":"permanent","pron":"/ˈpɜːmənənt/","type":"adjective","meaning":"kalıcı","example":"Spaced repetition creates {permanent} memory."},
+      {"word":"phase","pron":"/feɪz/","type":"noun","meaning":"aşama, evre","example":"The first {phase} of revision is understanding."},
+      {"word":"phenomenon","pron":"/fɪˈnɒmɪnən/","type":"noun","meaning":"olgu, fenomen","example":"This {phenomenon} is observed worldwide."},
+      {"word":"potential","pron":"/pəˈtenʃl/","type":"noun","meaning":"potansiyel","example":"Every student has the {potential} to succeed."},
+      {"word":"practice","pron":"/ˈpræktɪs/","type":"noun","meaning":"pratik, uygulama","example":"Regular {practice} is the key to mastery."},
+      {"word":"priority","pron":"/praɪˈɒrɪti/","type":"noun","meaning":"öncelik","example":"Set your {priority} for each study session."},
+      {"word":"productive","pron":"/prəˈdʌktɪv/","type":"adjective","meaning":"üretken, verimli","example":"A morning routine makes the day more {productive}."},
+      {"word":"profound","pron":"/prəˈfaʊnd/","type":"adjective","meaning":"derin, köklü","example":"This book had a {profound} impact on me."},
+      {"word":"progress","pron":"/ˈprəʊɡres/","type":"noun","meaning":"ilerleme","example":"Track your {progress} regularly."},
+      {"word":"psychological","pron":"/ˌsaɪkəˈlɒdʒɪkl/","type":"adjective","meaning":"psikolojik","example":"{Psychological} preparation is as important as content revision."},
+      {"word":"qualify","pron":"/ˈkwɒlɪfaɪ/","type":"verb","meaning":"nitelendirmek, hak kazanmak","example":"You need to {qualify} your statements with evidence."},
+      {"word":"quantity","pron":"/ˈkwɒntɪti/","type":"noun","meaning":"miktar","example":"Focus on quality, not just {quantity} of study hours."},
+      {"word":"question","pron":"/ˈkwestʃən/","type":"verb","meaning":"sorgulamak","example":"Always {question} what you read."},
+      {"word":"random","pron":"/ˈrændəm/","type":"adjective","meaning":"rastgele","example":"Don't study in a {random} order; be systematic."},
+      {"word":"rational","pron":"/ˈræʃnəl/","type":"adjective","meaning":"mantıklı, rasyonel","example":"Make {rational} decisions about your study plan."},
+      {"word":"realistic","pron":"/ˌrɪəˈlɪstɪk/","type":"adjective","meaning":"gerçekçi","example":"Set {realistic} targets for each week."},
+      {"word":"reflect","pron":"/rɪˈflekt/","type":"verb","meaning":"yansıtmak, düşünmek","example":"{Reflect} on what you learned each day."},
+      {"word":"represent","pron":"/ˌreprɪˈzent/","type":"verb","meaning":"temsil etmek","example":"Charts {represent} data visually."},
+      {"word":"resist","pron":"/rɪˈzɪst/","type":"verb","meaning":"direnmek, karşı koymak","example":"{Resist} the urge to check your phone while studying."},
+      {"word":"resource","pron":"/rɪˈzɔːs/","type":"noun","meaning":"kaynak","example":"Use all available {resources} to prepare."},
+      {"word":"restrict","pron":"/rɪˈstrɪkt/","type":"verb","meaning":"kısıtlamak","example":"{Restrict} social media use during study hours."},
+      {"word":"review","pron":"/rɪˈvjuː/","type":"verb","meaning":"gözden geçirmek","example":"{Review} each chapter after finishing it."},
+      {"word":"rigorous","pron":"/ˈrɪɡərəs/","type":"adjective","meaning":"titiz, katı","example":"Adopt a {rigorous} approach to exam preparation."},
+      {"word":"scope","pron":"/skəʊp/","type":"noun","meaning":"kapsam","example":"Define the {scope} of your revision plan."},
+      {"word":"sequence","pron":"/ˈsiːkwəns/","type":"noun","meaning":"sıra, dizi","example":"Learn vocabulary in a logical {sequence}."},
+      {"word":"shift","pron":"/ʃɪft/","type":"verb","meaning":"kaymak, değiştirmek","example":"{Shift} your focus to weak areas."},
+      {"word":"simplify","pron":"/ˈsɪmplɪfaɪ/","type":"verb","meaning":"basitleştirmek","example":"{Simplify} complex ideas into your own words."},
+      {"word":"simulate","pron":"/ˈsɪmjʊleɪt/","type":"verb","meaning":"simüle etmek, taklit etmek","example":"{Simulate} exam conditions when practising."},
+      {"word":"source","pron":"/sɔːs/","type":"noun","meaning":"kaynak","example":"Always cite your {source}."},
+      {"word":"stable","pron":"/ˈsteɪbl/","type":"adjective","meaning":"istikrarlı, sabit","example":"A {stable} routine leads to better results."},
+      {"word":"stimulate","pron":"/ˈstɪmjʊleɪt/","type":"verb","meaning":"uyarmak, harekete geçirmek","example":"Challenging problems {stimulate} the brain."},
+      {"word":"strengthen","pron":"/ˈstreŋθən/","type":"verb","meaning":"güçlendirmek","example":"{Strengthen} your weak areas before the exam."},
+      {"word":"subjective","pron":"/səbˈdʒektɪv/","type":"adjective","meaning":"öznel","example":"Some questions ask for {subjective} opinions."},
+      {"word":"substitute","pron":"/ˈsʌbstɪtjuːt/","type":"verb","meaning":"yerine koymak, ikame etmek","example":"Don't {substitute} understanding with memorization."},
+      {"word":"succeed","pron":"/səkˈsiːd/","type":"verb","meaning":"başarılı olmak","example":"You will {succeed} if you stay consistent."},
+      {"word":"sustain","pron":"/səˈsteɪn/","type":"verb","meaning":"sürdürmek, devam ettirmek","example":"It's hard to {sustain} motivation over a long period."},
+      {"word":"systematic","pron":"/ˌsɪstəˈmætɪk/","type":"adjective","meaning":"sistematik","example":"A {systematic} approach to revision saves time."},
+      {"word":"target","pron":"/ˈtɑːɡɪt/","type":"noun","meaning":"hedef","example":"Set a daily {target} for pages read."},
+      {"word":"tendency","pron":"/ˈtendənsi/","type":"noun","meaning":"eğilim","example":"There's a {tendency} to procrastinate before exams."},
+      {"word":"theory","pron":"/ˈθɪəri/","type":"noun","meaning":"teori, kuram","example":"The {theory} was confirmed by multiple experiments."},
+      {"word":"throughout","pron":"/θruːˈaʊt/","type":"preposition","meaning":"boyunca","example":"She studied hard {throughout} the year."},
+      {"word":"trace","pron":"/treɪs/","type":"verb","meaning":"izlemek, takip etmek","example":"{Trace} the origin of the word to remember it."},
+      {"word":"uncertain","pron":"/ʌnˈsɜːtn/","type":"adjective","meaning":"belirsiz","example":"If you're {uncertain}, re-read the question carefully."},
+      {"word":"underline","pron":"/ˌʌndəˈlaɪn/","type":"verb","meaning":"altını çizmek","example":"{Underline} key words while reading."},
+      {"word":"uniform","pron":"/ˈjuːnɪfɔːm/","type":"adjective","meaning":"tek düze, birörnek","example":"Apply a {uniform} approach to all topics."},
+      {"word":"update","pron":"/ʌpˈdeɪt/","type":"verb","meaning":"güncellemek","example":"{Update} your study notes after each lesson."},
+      {"word":"version","pron":"/ˈvɜːʃn/","type":"noun","meaning":"versiyon, sürüm","example":"Write a first {version} before editing."},
+      {"word":"visualize","pron":"/ˈvɪʒuəlaɪz/","type":"verb","meaning":"görselleştirmek","example":"{Visualize} the concept as a diagram."},
+      {"word":"widespread","pron":"/ˈwaɪdspred/","type":"adjective","meaning":"yaygın","example":"Procrastination is a {widespread} problem among students."},
+      {"word":"withdraw","pron":"/wɪðˈdrɔː/","type":"verb","meaning":"çekilmek, geri almak","example":"Don't {withdraw} from difficult topics."},
+      {"word":"yield","pron":"/jiːld/","type":"verb","meaning":"sonuç vermek, kazandırmak","example":"Consistent effort {yields} great results."}
+    ];
+  }
+  knownWords = new Set(JSON.parse(localStorage.getItem('yks-known-words') || '[]'));
+  dailyState = JSON.parse(localStorage.getItem('yks-daily-words') || '{"day":0, "words":[]}');
+  renderVocab();
 }
 
-/* ══ Schedule ══ */
-const DAYS  =['Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi','Pazar'];
-const DAYS_S=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
-const TODAY =(new Date().getDay()+6)%7;
-let activeDay=TODAY, SD={};
+let knownWords = new Set([]);
+// Günlük seçilen kelimeleri sabit tutmak için yeni bir state ekliyoruz
+let dailyState = { day: 0, words: [] };
 
-function loadSD(){
-  try{SD=JSON.parse(localStorage.getItem('ders-programi-v2')||'{}');}catch(e){SD={};}
-  DAYS.forEach((_,i)=>{if(!SD[i])SD[i]=[];});
-}
-function saveSD(){ localStorage.setItem('ders-programi-v2',JSON.stringify(SD)); }
-function nb(){ return{id:Date.now()+Math.random(),subject:'',start:'',end:'',tag:'',note:'',done:false}; }
+function saveKnown() { localStorage.setItem('yks-known-words', JSON.stringify([...knownWords])); }
+function saveDaily() { localStorage.setItem('yks-daily-words', JSON.stringify(dailyState)); }
 
-function calcDur(s,e){
-  if(!s||!e)return'';
-  const[sh,sm]=s.split(':').map(Number),[eh,em]=e.split(':').map(Number);
-  if([sh,sm,eh,em].some(isNaN))return'';
-  const d=(eh*60+em)-(sh*60+sm); if(d<=0)return'';
-  const h=Math.floor(d/60),m=d%60;
-  return h>0?(m>0?`${h}s ${m}d`:`${h}s`):`${m}d`;
+function getAvailablePool() {
+  return VOCAB_POOL.filter(w => !knownWords.has(w.word));
 }
 
-function getStats(di){
-  const bl=SD[di]||[],done=bl.filter(b=>b.done).length;
-  let min=0;
-  bl.forEach(b=>{
-    if(!b.start||!b.end)return;
-    const[sh,sm]=b.start.split(':').map(Number),[eh,em]=b.end.split(':').map(Number);
-    if([sh,sm,eh,em].some(isNaN))return;
-    const d=(eh*60+em)-(sh*60+sm);if(d>0)min+=d;
-  });
-  const h=Math.floor(min/60),m=min%60;
-  return{total:bl.length,done,tot:min>0?(h>0?(m>0?`${h}s ${m}d`:`${h}s`):`${m}d`):'—'};
+function getTodayVocab() {
+  const dayNum = Math.floor(Date.now() / 86400000);
+  let pool = getAvailablePool();
+
+  // Kelimeler bittiyse havuzu sıfırla
+  if (pool.length === 0 && VOCAB_POOL.length > 0) {
+    knownWords.clear(); 
+    saveKnown();
+    pool = getAvailablePool();
+  }
+
+  // Gün değiştiyse VEYA günlük liste boşsa yeni 10 kelime seç
+  if (dailyState.day !== dayNum || dailyState.words.length === 0) {
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    dailyState.day = dayNum;
+    dailyState.words = shuffled.slice(0, Math.min(10, shuffled.length)).map(w => w.word);
+    saveDaily();
+  }
+
+  // Saklanan kelime stringlerini havuzdan bularak tam objeye çevir
+  return dailyState.words.map(wordStr => VOCAB_POOL.find(w => w.word === wordStr)).filter(Boolean);
 }
 
-function renderTabs(){
-  const c=document.getElementById('day-tabs');c.innerHTML='';
-  DAYS.forEach((_,i)=>{
-    const t=document.createElement('button');
-    t.className='dtab'+(i===TODAY?' is-today':'')+(i===activeDay?' active':'');
-    t.textContent=DAYS_S[i]; t.title=DAYS[i];
-    t.onclick=()=>{activeDay=i;render();};
-    c.appendChild(t);
-  });
-}
+function swapWord(originalWord) {
+  // 1. Kelimeyi biliniyor olarak işaretle
+  knownWords.add(originalWord);
+  saveKnown();
 
-function renderBoard(){
-  const board=document.getElementById('board');board.innerHTML='';
-  DAYS.forEach((name,di)=>{
-    const panel=document.createElement('div');
-    panel.className='day-panel'+(di===activeDay?' active':'');
-    panel.id=`panel-${di}`;
-    const st=getStats(di),bl=SD[di]||[];
-    const pct=bl.length>0?Math.round((st.done/bl.length)*100):0;
-    panel.innerHTML=`
-      <div class="day-head">
-        <div class="day-head-name">${name}</div>
-        <div class="day-stats">
-          <div class="dstat"><span class="dstat-n">${st.tot}</span><span class="dstat-l">Toplam</span></div>
-          <div class="dstat"><span class="dstat-n">${st.done}/${st.total}</span><span class="dstat-l">Bitti</span></div>
-        </div>
-        <button class="add-btn" onclick="addBlock(${di})">
-          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          Ekle
-        </button>
-      </div>
-      <div class="day-prog"><div class="day-prog-fill" style="width:${pct}%"></div></div>
-      <div class="blocks" id="blocks-${di}"></div>`;
-    board.appendChild(panel);
-    const bc=panel.querySelector(`#blocks-${di}`);
-    if(!bl.length){
-      bc.innerHTML=`<div class="empty"><div class="empty-t">Bu gün için henüz ders yok</div><p>Ekle butonuna tıklayarak başla</p></div>`;
-    } else {
-      bl.forEach((b,bi)=>bc.appendChild(mkBlock(di,bi,b)));
+  let pool = getAvailablePool();
+  // 2. Halihazırda ekrandaki 10 kelimeyi havuzdan çıkar ki aynı kelime tekrar gelmesin
+  pool = pool.filter(w => !dailyState.words.includes(w.word));
+
+  if (pool.length > 0) {
+    // 3. Kalan havuzdan rastgele yeni bir kelime seç
+    const newWordObj = pool[Math.floor(Math.random() * pool.length)];
+    
+    // 4. Günlük listedeki eski kelimenin yerine yenisini koy
+    const idx = dailyState.words.indexOf(originalWord);
+    if (idx !== -1) {
+      dailyState.words[idx] = newWordObj.word;
+      saveDaily();
     }
-  });
+    
+    const rem = getAvailablePool().length;
+    toast(`"${originalWord}" değiştirildi. Kalan: ${rem}`);
+  } else {
+    // Havuzda eklenecek yeni kelime kalmadıysa sadece listeden uçur
+    dailyState.words = dailyState.words.filter(w => w !== originalWord);
+    saveDaily();
+    toast(`Tüm kelimeleri bitirdin!`);
+  }
+
+  // Arayüzü güncelle
+  renderVocab();
 }
 
-function mkBlock(di,bi,b){
-  const el=document.createElement('div');
-  el.className='block'+(b.done?' done':'');
-  const d=calcDur(b.start,b.end);
-  el.innerHTML=`
-    <div class="block-grid">
-      <div class="bcheck" onclick="toggleDone(${di},${bi})">
-        <div class="bcirc">
-          <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+function renderVocab() {
+  const words = getTodayVocab();
+  const rem = getAvailablePool().length;
+  
+  document.getElementById('vocab-date').textContent = 
+    new Date().toLocaleDateString('tr-TR', { day:'numeric', month:'long', year:'numeric' }) + 
+    ` · ${rem} kelime kaldı`;
+    
+  document.getElementById('vocab-grid').innerHTML = words.map(w => {
+    const ex = w.example.replace(/\{(\w+)\}/g, '<span>$1</span>');
+    return `<div class="vcard">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="vcard-word">${w.word}</div>
+          <div class="vcard-pron">${w.pron}</div>
         </div>
+        <button onclick="swapWord('${w.word}')" title="Bu kelimeyi zaten biliyorum" style="background:none;border:none;cursor:pointer;font-size:.68rem;color:var(--border2);padding:.15rem .3rem;border-radius:4px;transition:color .15s;line-height:1;white-space:nowrap" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--border2)'">Biliyorum ✕</button>
       </div>
-      <div class="bcontent">
-        <input class="bsubject" type="text" placeholder="Ders adı…" value="${esc(b.subject)}" onblur="uf(${di},${bi},'subject',this.value)">
-        <div class="brow2">
-          <div class="time-grp">
-            <input class="tinput" type="time" value="${b.start}" onchange="uf(${di},${bi},'start',this.value);ud(${di},${bi})">
-            <span class="tsep">→</span>
-            <input class="tinput" type="time" value="${b.end}" onchange="uf(${di},${bi},'end',this.value);ud(${di},${bi})">
-          </div>
-          <span class="dur-pill" id="dur-${b.id}" style="opacity:${d?1:0}">${d||'0s'}</span>
-          <input class="tag-in" type="text" placeholder="etiket…" value="${esc(b.tag)}" onblur="uf(${di},${bi},'tag',this.value)">
-        </div>
-        <textarea class="bnote" placeholder="not…" rows="1" oninput="ar(this);uf(${di},${bi},'note',this.value)">${esc(b.note)}</textarea>
-      </div>
-      <div class="bactions">
-        <button class="ibtn" onclick="delBlock(${di},${bi})" title="Sil">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5.5 3.5V2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1M5 3.5l.5 8M9 3.5l-.5 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </button>
-        <button class="ibtn" onclick="mv(${di},${bi},-1)" title="Yukarı">
-          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M2 6l4-4 4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="ibtn" onclick="mv(${di},${bi},1)" title="Aşağı">
-          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
+      <span class="vcard-type">${w.type}</span>
+      <div class="vcard-meaning">${w.meaning}</div>
+      <div class="vcard-example">${ex}</div>
     </div>`;
-  setTimeout(()=>{const ta=el.querySelector('.bnote');if(ta)ar(ta);},0);
-  return el;
+  }).join('');
 }
 
+loadVocabPool();
+
+
+/* ══ SCHEDULE ══ */
+const DAYS=['Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi','Pazar'];
+const DAYS_S=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+const TODAY=(new Date().getDay()+6)%7;
+let activeDay=TODAY,SD={};
+function loadSD(){try{SD=JSON.parse(localStorage.getItem('ders-programi-v2')||'{}');}catch(e){SD={};}DAYS.forEach((_,i)=>{if(!SD[i])SD[i]=[];});}
+function saveSD(){localStorage.setItem('ders-programi-v2',JSON.stringify(SD));markToday();}
+function nb(){return{id:Date.now()+Math.random(),subject:'',start:'',end:'',tag:'',note:'',done:false};}
+function calcDur(s,e){if(!s||!e)return'';const[sh,sm]=s.split(':').map(Number),[eh,em]=e.split(':').map(Number);if([sh,sm,eh,em].some(isNaN))return'';const d=(eh*60+em)-(sh*60+sm);if(d<=0)return'';const h=Math.floor(d/60),m=d%60;return h>0?(m>0?`${h}s ${m}d`:`${h}s`):`${m}d`;}
+function getStats(di){const bl=SD[di]||[],done=bl.filter(b=>b.done).length;let min=0;bl.forEach(b=>{if(!b.start||!b.end)return;const[sh,sm]=b.start.split(':').map(Number),[eh,em]=b.end.split(':').map(Number);if([sh,sm,eh,em].some(isNaN))return;const d=(eh*60+em)-(sh*60+sm);if(d>0)min+=d;});const h=Math.floor(min/60),m=min%60;return{total:bl.length,done,tot:min>0?(h>0?(m>0?`${h}s ${m}d`:`${h}s`):`${m}d`):'—'};}
+function renderTabs(){const c=document.getElementById('day-tabs');c.innerHTML='';DAYS.forEach((_,i)=>{const t=document.createElement('button');t.className='dtab'+(i===TODAY?' is-today':'')+(i===activeDay?' active':'');t.textContent=DAYS_S[i];t.title=DAYS[i];t.onclick=()=>{activeDay=i;render();};c.appendChild(t);});}
+function renderBoard(){const board=document.getElementById('board');board.innerHTML='';DAYS.forEach((name,di)=>{const panel=document.createElement('div');panel.className='day-panel'+(di===activeDay?' active':'');panel.id=`panel-${di}`;const st=getStats(di),bl=SD[di]||[];const pct=bl.length>0?Math.round((st.done/bl.length)*100):0;panel.innerHTML=`<div class="day-head"><div class="day-head-name">${name}</div><div class="day-stats"><div class="dstat"><span class="dstat-n">${st.tot}</span><span class="dstat-l">Toplam</span></div><div class="dstat"><span class="dstat-n">${st.done}/${st.total}</span><span class="dstat-l">Bitti</span></div></div><button class="add-btn" onclick="addBlock(${di})"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> Ekle</button></div><div class="day-prog"><div class="day-prog-fill" style="width:${pct}%"></div></div><div class="blocks" id="blocks-${di}"></div>`;board.appendChild(panel);const bc=panel.querySelector(`#blocks-${di}`);if(!bl.length){bc.innerHTML=`<div class="empty"><div class="empty-t">Bu gün için henüz ders yok</div><p>Ekle butonuna tıklayarak başla</p></div>`;}else{bl.forEach((b,bi)=>bc.appendChild(mkBlock(di,bi,b)));}});}
+function mkBlock(di,bi,b){const el=document.createElement('div');el.className='block'+(b.done?' done':'');const d=calcDur(b.start,b.end);el.innerHTML=`<div class="block-grid"><div class="bcheck" onclick="toggleDone(${di},${bi})"><div class="bcirc"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><div class="bcontent"><input class="bsubject" type="text" placeholder="Ders adı…" value="${esc(b.subject)}" onblur="uf(${di},${bi},'subject',this.value)"><div class="brow2"><div class="time-grp"><input class="tinput" type="time" value="${b.start}" onchange="uf(${di},${bi},'start',this.value);ud(${di},${bi})"><span class="tsep">→</span><input class="tinput" type="time" value="${b.end}" onchange="uf(${di},${bi},'end',this.value);ud(${di},${bi})"></div><span class="dur-pill" id="dur-${b.id}" style="opacity:${d?1:0}">${d||'0s'}</span><input class="tag-in" type="text" placeholder="etiket…" value="${esc(b.tag)}" onblur="uf(${di},${bi},'tag',this.value)"></div><textarea class="bnote" placeholder="not…" rows="1" oninput="ar(this);uf(${di},${bi},'note',this.value)">${esc(b.note)}</textarea></div><div class="bactions"><button class="ibtn" onclick="delBlock(${di},${bi})" title="Sil"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5.5 3.5V2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1M5 3.5l.5 8M9 3.5l-.5 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button><button class="ibtn" onclick="mv(${di},${bi},-1)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M2 6l4-4 4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="ibtn" onclick="mv(${di},${bi},1)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>`;setTimeout(()=>{const ta=el.querySelector('.bnote');if(ta)ar(ta);},0);return el;}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function ar(el){el.style.height='auto';el.style.height=el.scrollHeight+'px';}
-function uf(di,bi,f,v){if(!SD[di]||!SD[di][bi])return;SD[di][bi][f]=v;saveSD();upStats(di);}
-function ud(di,bi){
-  const b=SD[di][bi],d=calcDur(b.start,b.end);
-  const dp=document.getElementById(`dur-${b.id}`);
-  if(dp){dp.textContent=d||'0s';dp.style.opacity=d?'1':'0';}
-  upStats(di);
-}
-function upStats(di){
-  const st=getStats(di),p=document.getElementById(`panel-${di}`);if(!p)return;
-  const ns=p.querySelectorAll('.dstat-n');
-  if(ns[0])ns[0].textContent=st.tot;
-  if(ns[1])ns[1].textContent=`${st.done}/${st.total}`;
-  const pct=st.total>0?Math.round((st.done/st.total)*100):0;
-  const f=p.querySelector('.day-prog-fill');if(f)f.style.width=pct+'%';
-}
+function uf(di,bi,f,v){if(!SD[di]||!SD[di][bi])return;SD[di][bi][f]=v;saveSD();}
+function ud(di,bi){const b=SD[di][bi],d=calcDur(b.start,b.end);const dp=document.getElementById(`dur-${b.id}`);if(dp){dp.textContent=d||'0s';dp.style.opacity=d?'1':'0';}upStats(di);}
+function upStats(di){const st=getStats(di),p=document.getElementById(`panel-${di}`);if(!p)return;const ns=p.querySelectorAll('.dstat-n');if(ns[0])ns[0].textContent=st.tot;if(ns[1])ns[1].textContent=`${st.done}/${st.total}`;const pct=st.total>0?Math.round((st.done/st.total)*100):0;const f=p.querySelector('.day-prog-fill');if(f)f.style.width=pct+'%';}
 function toggleDone(di,bi){if(!SD[di]||!SD[di][bi])return;SD[di][bi].done=!SD[di][bi].done;saveSD();render();}
 function addBlock(di){SD[di].push(nb());saveSD();render();setTimeout(()=>{const p=document.getElementById(`panel-${di}`),ins=p.querySelectorAll('.bsubject');if(ins.length)ins[ins.length-1].focus();},50);}
-function delBlock(di,bi){SD[di].splice(bi,1);saveSD();render();toast('Blok silindi');}
+function delBlock(di,bi){SD[di].splice(bi,1);saveSD();render();toast('Blok silindi.');}
 function mv(di,bi,dir){const a=SD[di],ni=bi+dir;if(ni<0||ni>=a.length)return;[a[bi],a[ni]]=[a[ni],a[bi]];saveSD();render();}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
 function render(){renderTabs();renderBoard();}
 loadSD();render();
+
+/* ══ VOCAB QUIZ ══ */
+let qWords=[],qRound=0,qScore=0,qWrong=[],qIdx=0;
+let r1Selected={word:null,meaning:null},r1Done=0;
+let r3Answered=false;
+
+function startQuiz(){
+  qWords=getTodayVocab();
+  qRound=1; qScore=0; qWrong=[];
+  document.getElementById('quiz-start').style.display='none';
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('quiz-body').style.display='block';
+  startRound1();
+}
+
+function setQuizHeader(roundText,progress,total){
+  document.getElementById('quiz-round-label').textContent=roundText;
+  document.getElementById('quiz-score-live').textContent=qScore;
+  document.getElementById('quiz-prog-fill').style.width=(progress/total*100)+'%';
+}
+
+/* ── ROUND 1: Matching ── */
+function startRound1(){
+  r1Done=0; r1Selected={word:null,meaning:null};
+  const words=[...qWords].sort(()=>Math.random()-.5);
+  const meanings=[...qWords].sort(()=>Math.random()-.5);
+  setQuizHeader('TUR 1 / 2 — Eşleştirme',0,qWords.length);
+  const area=document.getElementById('quiz-question-area');
+  area.innerHTML=`
+    <div class="quiz-section-title">İngilizce kelimeyi Türkçe anlamıyla eşleştir</div>
+    <div class="match-progress" id="r1-prog">0 / ${qWords.length} eşleşti</div>
+    <div class="match-grid">
+      <div class="match-col">
+        <div class="match-col-label">İngilizce</div>
+        ${words.map(w=>`<div class="match-item" id="mw-${w.word}" onclick="r1ClickWord('${w.word}')">${w.word}</div>`).join('')}
+      </div>
+      <div class="match-col">
+        <div class="match-col-label">Türkçe</div>
+        ${meanings.map(w=>`<div class="match-item" id="mm-${w.word}" onclick="r1ClickMeaning('${w.word}')">${w.meaning}</div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function r1ClickWord(word){
+  if(document.getElementById('mw-'+word).classList.contains('correct'))return;
+  document.querySelectorAll('.match-item').forEach(el=>{if(!el.classList.contains('correct'))el.classList.remove('selected');});
+  document.getElementById('mw-'+word).classList.add('selected');
+  r1Selected.word=word;
+  if(r1Selected.meaning)r1Check();
+}
+function r1ClickMeaning(word){
+  if(document.getElementById('mm-'+word).classList.contains('correct'))return;
+  document.querySelectorAll('.match-item').forEach(el=>{if(!el.classList.contains('correct'))el.classList.remove('selected');});
+  document.getElementById('mm-'+word).classList.add('selected');
+  r1Selected.meaning=word;
+  if(r1Selected.word)r1Check();
+}
+function r1Check(){
+  const {word,meaning}=r1Selected;
+  const wEl=document.getElementById('mw-'+word);
+  const mEl=document.getElementById('mm-'+meaning);
+  if(word===meaning){
+    wEl.classList.remove('selected');wEl.classList.add('correct');
+    mEl.classList.remove('selected');mEl.classList.add('correct');
+    qScore+=10;r1Done++;
+    document.getElementById('quiz-score-live').textContent=qScore;
+    document.getElementById('r1-prog').textContent=r1Done+' / '+qWords.length+' eşleşti';
+    setQuizHeader('TUR 1 / 2 — Eşleştirme',r1Done,qWords.length);
+    if(r1Done===qWords.length){setTimeout(()=>{qRound=2;qIdx=0;startRound2();},700);}
+  } else {
+    wEl.classList.remove('selected');wEl.classList.add('wrong');
+    mEl.classList.remove('selected');mEl.classList.add('wrong');
+    if(!qWrong.find(x=>x.word===word))qWrong.push(qWords.find(w=>w.word===word));
+    setTimeout(()=>{wEl.classList.remove('wrong');mEl.classList.remove('wrong');},600);
+  }
+  r1Selected={word:null,meaning:null};
+}
+
+/* ── ROUND 2: Typing ── */
+function startRound2(){
+  r3Answered=false;
+  if(qIdx>=qWords.length){showQuizResult();return;}
+  setQuizHeader('TUR 2 / 2 — Yazma',qIdx,qWords.length);
+  const w=qWords[qIdx];
+  const ex=w.example.replace(/\{(\w+)\}/g,'<b>$1</b>').replace(/<b>[\w]+<\/b>/,'<b>___</b>');
+  const area=document.getElementById('quiz-question-area');
+  area.innerHTML=`
+    <div class="quiz-counter">${qIdx+1} / ${qWords.length}</div>
+    <div class="type-question">Türkçe anlamı:</div>
+    <div class="type-meaning">${w.meaning}</div>
+    <div class="type-input-wrap">
+      <input class="type-input" id="type-in" placeholder="İngilizce yaz…" onkeydown="if(event.key==='Enter')r3Check()">
+      <button class="lbtn green" onclick="r3Check()">Kontrol</button>
+      <button class="lbtn" onclick="r3Skip()">Geç</button>
+    </div>
+    <div class="type-feedback" id="type-fb"></div>
+    <div class="type-hint" id="type-hint">İpucu: ${w.word[0]}${'_'.repeat(w.word.length-1)} (${w.word.length} harf)</div>
+    <div class="type-example" id="type-ex" style="display:none">Örnek: ${ex}</div>
+    <button class="lbtn quiz-next-btn" id="type-next" style="display:none" onclick="qIdx++;startRound2()">Sonraki →</button>`;
+  setTimeout(()=>document.getElementById('type-in').focus(),50);
+}
+function r3Check(){
+  if(r3Answered)return;
+  const w=qWords[qIdx];
+  const input=document.getElementById('type-in');
+  const val=input.value.trim().toLowerCase();
+  const correct=w.word.toLowerCase();
+  r3Answered=true;
+  const fb=document.getElementById('type-fb');
+  if(val===correct){
+    input.classList.add('correct');
+    fb.textContent='✓ Doğru!';fb.className='type-feedback ok';
+    qScore+=10;document.getElementById('quiz-score-live').textContent=qScore;
+  } else {
+    input.classList.add('wrong');
+    fb.textContent='✗ Yanlış. Doğru: '+w.word;fb.className='type-feedback bad';
+    if(!qWrong.find(x=>x.word===w.word))qWrong.push(w);
+  }
+  document.getElementById('type-ex').style.display='block';
+  document.getElementById('type-next').style.display='inline-block';
+  input.disabled=true;
+  setQuizHeader('TUR 2 / 2 — Yazma',qIdx+1,qWords.length);
+}
+function r3Skip(){
+  if(r3Answered)return;
+  const w=qWords[qIdx];
+  r3Answered=true;
+  document.getElementById('type-fb').textContent='Doğru cevap: '+w.word;
+  document.getElementById('type-fb').className='type-feedback bad';
+  document.getElementById('type-in').classList.add('wrong');
+  document.getElementById('type-ex').style.display='block';
+  document.getElementById('type-next').style.display='inline-block';
+  document.getElementById('type-in').disabled=true;
+  if(!qWrong.find(x=>x.word===w.word))qWrong.push(w);
+}
+
+/* ── Result ── */
+function showQuizResult(){
+  document.getElementById('quiz-body').style.display='none';
+  document.getElementById('quiz-result').style.display='block';
+  const max=qWords.length*2*10;
+  const pct=Math.round(qScore/max*100);
+  document.getElementById('quiz-result-score').textContent=qScore+' / '+max;
+  const msgs=['Tekrar çalış, inanıyorum sana! 💪','İyi bir başlangıç! 📚','Fena değil, devam et! 👍','Çok iyi! Neredeyse mükemmel! 🌟','Mükemmel! 🏆'];
+  document.getElementById('quiz-result-msg').textContent=msgs[pct<40?0:pct<60?1:pct<80?2:pct<100?3:4];
+  const wl=document.getElementById('quiz-wrong-list');
+  if(qWrong.length){
+    wl.innerHTML='<div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">Tekrar çalışman gereken kelimeler:</div>'+
+    qWrong.map(w=>`<div class="wrong-item"><span class="wrong-word">${w.word}</span><span class="wrong-meaning">${w.meaning}</span></div>`).join('');
+  } else { wl.innerHTML=''; }
+  const today=new Date().toISOString().slice(0,10);
+  localStorage.setItem('yks-quiz-score',JSON.stringify({date:today,score:qScore,max}));
+  document.getElementById('quiz-start').style.display='flex';
+  document.getElementById('quiz-prev-score').textContent=`Son sonuç: ${qScore}/${max} puan`;
+}
+
+(function(){
+  const s=localStorage.getItem('yks-quiz-score');
+  if(s){try{const o=JSON.parse(s);document.getElementById('quiz-prev-score').textContent=`Son sonuç: ${o.score}/${o.max} puan (${o.date})`;}catch(e){}}
+})();
+
 </script>
 </body>
 </html>
