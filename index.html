@@ -333,7 +333,7 @@
 <script>
   // YKS 2026 — TYT: 21 Haziran 2026, saat 10:15
   const EXAM = new Date('2026-06-21T10:15:00');
-  const YEAR_START = new Date('2025-09-01T00:00:00'); // yaklaşık okul yılı başlangıcı
+  const YEAR_START = new Date(2025, 8, 1); // 1 Eylül 2025
 
   const mottos = [
     "Her geçen saniye bir adım daha yakın.",
@@ -361,7 +361,7 @@
   const opts = { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' };
   document.getElementById('exam-date-label').textContent =
     EXAM.toLocaleDateString('tr-TR', opts) + ' · Saat 10:15';
-  document.getElementById('prog-start').textContent = '1 Eylül 2025';
+  document.getElementById('prog-start').textContent = 'Bugün';
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
