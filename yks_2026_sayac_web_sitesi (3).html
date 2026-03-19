@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>YKS 2026 Sayaç</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: url('bliss.jpg') no-repeat center center/cover;
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+    .date {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .countdown {
+      font-size: 48px;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="date">21 Haziran 2026</div>
+  <div class="countdown" id="countdown"></div>
+
+  <script>
+    const targetDate = new Date("2026-06-21T10:15:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerText = "Sınav başladı";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("countdown").innerText =
+        `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
