@@ -3,411 +3,587 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YKS Sayacı 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<title>YKS 2026 · Ders Programı</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #0a0a0f;
-    --paper: #f5f0e8;
-    --red: #c0392b;
-    --red-glow: rgba(192,57,43,0.3);
-    --gold: #b8960c;
-    --muted: rgba(245,240,232,0.35);
-    --line: rgba(245,240,232,0.12);
-  }
+/* ─── GLOBAL ─────────────────────────────────────────── */
+:root {
+  --ink:        #0a0a0f;
+  --paper:      #f5f0e8;
+  --red:        #c0392b;
+  --red-glow:   rgba(192,57,43,0.25);
+  --gold:       #b8960c;
+  --muted-dark: rgba(245,240,232,0.4);
+  --line-dark:  rgba(245,240,232,0.1);
 
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  --bg:         #f7f4ef;
+  --surface:    #ffffff;
+  --border:     #e2ddd6;
+  --border-dk:  #c8c2b8;
+  --text:       #1a1814;
+  --muted:      #8a8278;
+  --accent:     #2d5a27;
+  --accent-lt:  #e8f0e7;
+  --yellow:     #c17f24;
+  --yellow-lt:  #fdf6e8;
+  --done-bg:    #f0f5ef;
+  --shadow:     0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --radius:     10px;
+  --mono:       'DM Mono', monospace;
+  --serif:      'Fraunces', Georgia, serif;
+  --display:    'Bebas Neue', sans-serif;
+  --classic:    'Crimson Pro', Georgia, serif;
+}
 
-  body {
-    background: var(--ink);
-    color: var(--paper);
-    font-family: 'Crimson Pro', Georgia, serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-  }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-  /* Noise texture overlay */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 0;
-  }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  min-height: 100vh;
+}
 
-  /* Vignette */
-  body::after {
-    content: '';
-    position: fixed; inset: 0;
-    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
+/* ─── TOP BANNER (YKS countdown) ─────────────────────── */
+.banner {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--classic);
+  position: relative;
+  overflow: hidden;
+  padding: 1.4rem 2rem 1rem;
+}
+.banner::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.5; pointer-events:none; z-index:0;
+}
+.banner::after {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.6) 100%);
+  pointer-events:none; z-index:0;
+}
+.glow-orb {
+  position:absolute;
+  width:60vw; height:60vw; max-width:500px; max-height:500px;
+  background:radial-gradient(circle, rgba(192,57,43,0.15) 0%, transparent 70%);
+  top:50%; right:5%;
+  transform:translateY(-50%);
+  pointer-events:none; z-index:0;
+  animation:pulse 4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:.8; transform:translateY(-50%) scale(1); }
+  50%      { opacity:1;  transform:translateY(-50%) scale(1.08); }
+}
+.banner-inner {
+  position:relative; z-index:1;
+  max-width:1100px; margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:2rem;
+  flex-wrap:wrap;
+  animation:fadeUp .9s ease both;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.banner-left { display:flex; flex-direction:column; gap:.2rem; }
+.banner-eyebrow {
+  font-family:var(--display);
+  font-size:.62rem; letter-spacing:.35em; color:var(--gold);
+}
+.banner-title {
+  font-family:var(--display);
+  font-size:clamp(2rem,5vw,3.6rem);
+  line-height:.9; color:var(--paper);
+  text-shadow:0 0 60px var(--red-glow);
+  letter-spacing:.02em;
+}
+.banner-title span { color:var(--red); }
+.banner-date {
+  font-size:.76rem; font-style:italic;
+  color:var(--muted-dark); margin-top:.3rem; letter-spacing:.04em;
+}
 
-  /* Horizontal rule lines */
-  .rule {
-    position: fixed;
-    left: 5vw; right: 5vw;
-    height: 1px;
-    background: var(--line);
-    z-index: 1;
-  }
-  .rule-top { top: 10vh; }
-  .rule-bottom { bottom: 10vh; }
+/* countdown */
+.countdown {
+  display:flex;
+  gap:clamp(.5rem,2vw,1.4rem);
+  align-items:flex-start;
+}
+.unit { display:flex; flex-direction:column; align-items:center; gap:.2rem; }
+.number {
+  font-family:var(--display);
+  font-size:clamp(1.8rem,4.5vw,3.4rem);
+  line-height:1; color:var(--paper);
+  text-shadow:0 0 30px var(--red-glow);
+  min-width:clamp(1.6rem,3.5vw,2.8rem);
+  display:block; transition:color .12s ease;
+}
+.number.tick { color:var(--red); }
+.cd-label {
+  font-family:var(--display);
+  font-size:.52rem; letter-spacing:.28em;
+  color:var(--muted-dark); text-transform:uppercase;
+}
+.sep {
+  font-family:var(--display);
+  font-size:clamp(1.4rem,3.5vw,2.6rem);
+  color:var(--red); opacity:.6; margin-top:.06em;
+  animation:blink 1s step-start infinite;
+}
+@keyframes blink {
+  0%,100%{opacity:.6;} 50%{opacity:.15;}
+}
 
-  /* Vertical decorative lines */
-  .vline {
-    position: fixed;
-    top: 10vh; bottom: 10vh;
-    width: 1px;
-    background: var(--line);
-    z-index: 1;
-  }
-  .vline-left { left: 5vw; }
-  .vline-right { right: 5vw; }
+/* progress strip */
+.banner-progress {
+  position:relative; z-index:1;
+  max-width:1100px; margin:.8rem auto 0;
+  display:flex; align-items:center; gap:.7rem;
+}
+.bp-label {
+  font-family:var(--display);
+  font-size:.58rem; letter-spacing:.16em; color:var(--muted-dark); white-space:nowrap;
+}
+.bp-bar { flex:1; height:2px; background:var(--line-dark); border-radius:2px; overflow:hidden; }
+.bp-fill {
+  height:100%;
+  background:linear-gradient(90deg, var(--gold), var(--red));
+  box-shadow:0 0 6px var(--red-glow);
+  transition:width 1s ease;
+}
 
-  /* Corner marks */
-  .corner {
-    position: fixed;
-    width: 20px; height: 20px;
-    z-index: 2;
-  }
-  .corner::before, .corner::after { content: ''; position: absolute; background: var(--muted); }
-  .corner::before { height: 1px; width: 100%; top: 0; left: 0; }
-  .corner::after { width: 1px; height: 100%; top: 0; left: 0; }
-  .c-tl { top: 10vh; left: 5vw; }
-  .c-tr { top: 10vh; right: 5vw; transform: scaleX(-1); }
-  .c-bl { bottom: 10vh; left: 5vw; transform: scaleY(-1); }
-  .c-br { bottom: 10vh; right: 5vw; transform: scale(-1); }
+/* motto */
+.banner-motto {
+  position:relative; z-index:1;
+  max-width:1100px; margin:.45rem auto 0;
+  font-family:var(--classic); font-style:italic;
+  font-size:.8rem; color:var(--muted-dark);
+  letter-spacing:.04em; transition:opacity .4s ease;
+}
 
-  /* Main container */
-  .container {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 2rem;
-    animation: fadeIn 1.4s ease both;
-  }
+/* ─── MAIN CONTENT ─────────────────────────────────────── */
+.main {
+  max-width:1100px; margin:0 auto;
+  padding:2rem 1.5rem 4rem;
+}
+.main-topbar {
+  display:flex; align-items:baseline;
+  justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  margin-bottom:1.3rem;
+}
+.main-title {
+  font-family:var(--serif);
+  font-size:1.35rem; font-weight:300; font-style:italic; color:var(--text);
+}
+.main-title span { color:var(--accent); font-style:normal; font-weight:500; }
+.today-badge {
+  font-family:var(--mono); font-size:.67rem; color:var(--muted);
+  letter-spacing:.08em; text-transform:uppercase;
+  padding:.28rem .65rem;
+  border:1px solid var(--border); border-radius:4px; background:var(--surface);
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* tabs */
+.day-tabs {
+  display:flex; gap:.38rem; overflow-x:auto; padding-bottom:.2rem;
+  scrollbar-width:none; margin-bottom:1.1rem;
+}
+.day-tabs::-webkit-scrollbar{display:none;}
+.day-tab {
+  flex-shrink:0; padding:.4rem .9rem;
+  border-radius:6px; border:1px solid var(--border);
+  background:var(--surface); color:var(--muted);
+  font-family:var(--mono); font-size:.68rem;
+  letter-spacing:.05em; cursor:pointer; transition:all .15s; white-space:nowrap;
+}
+.day-tab:hover{border-color:var(--accent);color:var(--accent);}
+.day-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.day-tab.today-tab{position:relative;}
+.day-tab.today-tab::after{
+  content:''; position:absolute; top:-3px; right:-3px;
+  width:6px; height:6px; background:var(--yellow);
+  border-radius:50%; border:1.5px solid var(--bg);
+}
 
-  /* Eyebrow label */
-  .eyebrow {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeIn 1s 0.3s ease both;
-  }
+/* panels */
+.day-panel{display:none;}
+.day-panel.active{display:block;animation:slideIn .2s ease;}
+@keyframes slideIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 
-  /* Main heading */
-  h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3.5rem, 12vw, 9rem);
-    line-height: 0.88;
-    letter-spacing: 0.02em;
-    color: var(--paper);
-    text-shadow: 0 0 80px var(--red-glow), 0 2px 0 rgba(0,0,0,0.6);
-    margin-bottom: 0.5rem;
-    opacity: 0;
-    animation: fadeIn 1s 0.5s ease both;
-  }
+/* day header */
+.day-header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem; flex-wrap:wrap; padding:1rem 1.2rem;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:.65rem;
+}
+.day-name{font-family:var(--serif);font-size:1.1rem;font-weight:500;color:var(--text);}
+.day-stats{display:flex;gap:1.2rem;align-items:center;}
+.stat{text-align:right;}
+.stat-num{font-size:.9rem;font-weight:500;color:var(--accent);display:block;line-height:1;}
+.stat-label{font-size:.6rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+.add-btn{
+  display:flex;align-items:center;gap:.35rem;padding:.42rem .85rem;
+  background:var(--accent);color:#fff;border:none;border-radius:6px;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;
+  cursor:pointer;transition:opacity .15s;
+}
+.add-btn:hover{opacity:.85;}
 
-  h1 span {
-    color: var(--red);
-    display: block;
-    font-size: 1.1em;
-  }
+/* progress */
+.day-progress{height:3px;background:var(--border);border-radius:2px;margin-bottom:.85rem;overflow:hidden;}
+.day-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),#5a9e52);border-radius:2px;transition:width .4s ease;}
 
-  /* Date subtitle */
-  .date-label {
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    font-style: italic;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    margin-bottom: 4rem;
-    opacity: 0;
-    animation: fadeIn 1s 0.7s ease both;
-  }
+/* blocks */
+.blocks{display:flex;flex-direction:column;gap:.5rem;}
+.block{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  transition:border-color .15s;overflow:hidden;
+}
+.block:hover{border-color:var(--border-dk);}
+.block.done{background:var(--done-bg);}
+.block.done .block-subject{text-decoration:line-through;opacity:.45;}
+.block-main{display:grid;grid-template-columns:36px 1fr auto;align-items:stretch;}
+.block-check{display:flex;align-items:center;justify-content:center;padding:0 0 0 .72rem;cursor:pointer;}
+.check-circle{
+  width:18px;height:18px;border-radius:50%;
+  border:2px solid var(--border-dk);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;flex-shrink:0;color:transparent;
+}
+.block.done .check-circle{background:var(--accent);border-color:var(--accent);color:#fff;}
+.block-content{padding:.65rem .5rem;display:flex;flex-direction:column;gap:.28rem;min-width:0;}
+.block-subject{
+  font-family:var(--serif);font-size:.9rem;font-weight:500;color:var(--text);
+  background:none;border:none;outline:none;width:100%;cursor:text;padding:0;line-height:1.3;
+}
+.block-subject::placeholder{color:var(--border-dk);font-style:italic;}
+.block-row2{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
+.time-group{display:flex;align-items:center;gap:.22rem;}
+.time-sep{color:var(--muted);font-size:.7rem;}
+.time-input{
+  font-family:var(--mono);font-size:.68rem;color:var(--accent);
+  background:var(--accent-lt);border:1px solid transparent;
+  border-radius:4px;padding:.16rem .35rem;
+  outline:none;width:66px;transition:border-color .15s;cursor:text;
+}
+.time-input:focus{border-color:var(--accent);}
+.tag-input{
+  font-family:var(--mono);font-size:.65rem;color:var(--yellow);
+  background:var(--yellow-lt);border:1px solid transparent;
+  border-radius:4px;padding:.16rem .42rem;
+  outline:none;width:85px;transition:border-color .15s;cursor:text;
+}
+.tag-input:focus{border-color:var(--yellow);}
+.tag-input::placeholder{color:#d4a855;opacity:.55;}
+.duration-pill{
+  font-size:.61rem;font-weight:500;letter-spacing:.04em;
+  color:var(--muted);background:var(--bg);
+  border:1px solid var(--border);border-radius:3px;
+  padding:.12rem .35rem;white-space:nowrap;
+}
+.block-note{
+  font-family:var(--mono);font-size:.68rem;font-style:italic;
+  color:var(--muted);background:none;border:none;outline:none;
+  width:100%;resize:none;line-height:1.5;cursor:text;min-height:0;overflow:hidden;
+}
+.block-note::placeholder{color:var(--border-dk);}
+.block-actions{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;padding:.52rem .52rem .52rem 0;gap:.22rem;
+}
+.icon-btn{
+  background:none;border:none;color:var(--border-dk);
+  cursor:pointer;padding:.2rem;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  transition:color .15s,background .15s;line-height:0;
+}
+.icon-btn:hover{color:var(--red);background:#fdf0ee;}
 
-  /* Countdown grid */
-  .countdown {
-    display: flex;
-    gap: clamp(1rem, 4vw, 3rem);
-    justify-content: center;
-    align-items: flex-start;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeIn 1s 0.9s ease both;
-  }
+/* empty */
+.empty-state{
+  text-align:center;padding:3rem 2rem;color:var(--muted);
+  border:2px dashed var(--border);border-radius:var(--radius);
+}
+.empty-title{font-family:var(--serif);font-size:.9rem;font-style:italic;}
+.empty-state p{font-size:.73rem;margin-top:.4rem;}
 
-  .unit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4rem;
-  }
+/* toast */
+.toast{
+  position:fixed;bottom:2rem;right:2rem;
+  background:var(--text);color:var(--bg);
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;
+  padding:.52rem .9rem;border-radius:6px;
+  opacity:0;transform:translateY(8px);
+  transition:all .2s ease;pointer-events:none;z-index:99;
+}
+.toast.show{opacity:1;transform:translateY(0);}
 
-  .number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3.5rem, 10vw, 7rem);
-    line-height: 1;
-    color: var(--paper);
-    text-shadow: 0 0 40px var(--red-glow);
-    min-width: clamp(2.5rem, 8vw, 5.5rem);
-    display: block;
-    transition: color 0.15s ease;
-  }
-
-  .number.tick {
-    color: var(--red);
-  }
-
-  .label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(0.55rem, 1.2vw, 0.75rem);
-    letter-spacing: 0.35em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  /* Separator dots */
-  .sep {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 7vw, 5rem);
-    line-height: 1;
-    color: var(--red);
-    opacity: 0.6;
-    margin-top: 0.1em;
-    animation: blink 1s step-start infinite;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 0.15; }
-  }
-
-  /* Progress bar */
-  .progress-wrap {
-    width: clamp(200px, 50vw, 420px);
-    margin: 0 auto 1.5rem;
-    opacity: 0;
-    animation: fadeIn 1s 1.1s ease both;
-  }
-
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    font-family: 'Bebas Neue', sans-serif;
-  }
-
-  .progress-bar {
-    height: 2px;
-    background: var(--line);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--gold), var(--red));
-    box-shadow: 0 0 8px var(--red-glow);
-    transition: width 1s ease;
-  }
-
-  /* Motivational line */
-  .motto {
-    font-style: italic;
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    font-weight: 300;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    opacity: 0;
-    animation: fadeIn 1s 1.3s ease both;
-  }
-
-  /* Red glow orb behind countdown */
-  .glow-orb {
-    position: fixed;
-    width: 40vw;
-    height: 40vw;
-    background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 1;
-    animation: pulse 4s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.8; transform: translate(-50%,-50%) scale(1); }
-    50% { opacity: 1; transform: translate(-50%,-50%) scale(1.08); }
-  }
-
-  /* Exam passed state */
-  .passed {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 6vw, 4rem);
-    color: var(--gold);
-    letter-spacing: 0.05em;
-    text-shadow: 0 0 40px rgba(184,150,12,0.4);
-  }
-
-  @media (max-width: 480px) {
-    .countdown { gap: 0.6rem; }
-    .sep { margin: 0 -0.2rem; }
-  }
+@media(max-width:640px){
+  .banner-inner{flex-direction:column;gap:.8rem;}
+  .day-stats{display:none;}
+  .banner{padding:1.1rem 1rem .9rem;}
+  .main{padding:1.4rem 1rem 4rem;}
+}
 </style>
 </head>
 <body>
 
-<div class="rule rule-top"></div>
-<div class="rule rule-bottom"></div>
-<div class="vline vline-left"></div>
-<div class="vline vline-right"></div>
-<div class="corner c-tl"></div>
-<div class="corner c-tr"></div>
-<div class="corner c-bl"></div>
-<div class="corner c-br"></div>
-<div class="glow-orb"></div>
-
-<div class="container">
-  <p class="eyebrow">2026 · Türkiye Yükseköğretim Kurumları Sınavı</p>
-
-  <h1>YKS<span id="headline">Sayacı</span></h1>
-
-  <p class="date-label" id="exam-date-label">Sınav tarihi yükleniyor…</p>
-
-  <div class="countdown" id="countdown">
-    <div class="unit">
-      <span class="number" id="days">--</span>
-      <span class="label">Gün</span>
+<!-- ══ BANNER ══ -->
+<div class="banner">
+  <div class="glow-orb"></div>
+  <div class="banner-inner">
+    <div class="banner-left">
+      <div class="banner-eyebrow">2026 · Türkiye Yükseköğretim Kurumları Sınavı</div>
+      <div class="banner-title">YKS <span>Sayacı</span></div>
+      <div class="banner-date" id="exam-date-label">yükleniyor…</div>
     </div>
-    <div class="sep">:</div>
-    <div class="unit">
-      <span class="number" id="hours">--</span>
-      <span class="label">Saat</span>
-    </div>
-    <div class="sep">:</div>
-    <div class="unit">
-      <span class="number" id="minutes">--</span>
-      <span class="label">Dakika</span>
-    </div>
-    <div class="sep">:</div>
-    <div class="unit">
-      <span class="number" id="seconds">--</span>
-      <span class="label">Saniye</span>
+    <div class="countdown" id="countdown">
+      <div class="unit"><span class="number" id="days">--</span><span class="cd-label">Gün</span></div>
+      <div class="sep">:</div>
+      <div class="unit"><span class="number" id="hours">--</span><span class="cd-label">Saat</span></div>
+      <div class="sep">:</div>
+      <div class="unit"><span class="number" id="minutes">--</span><span class="cd-label">Dakika</span></div>
+      <div class="sep">:</div>
+      <div class="unit"><span class="number" id="seconds">--</span><span class="cd-label">Saniye</span></div>
     </div>
   </div>
-
-  <div class="progress-wrap">
-    <div class="progress-meta">
-      <span id="prog-start">—</span>
-      <span id="prog-pct">%—</span>
-      <span id="prog-end">Sınav</span>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="prog-fill" style="width:0%"></div>
-    </div>
+  <div class="banner-progress">
+    <span class="bp-label">Bugün</span>
+    <div class="bp-bar"><div class="bp-fill" id="prog-fill" style="width:0%"></div></div>
+    <span class="bp-label" id="prog-pct">%—</span>
+    <span class="bp-label">Sınav</span>
   </div>
-
-  <p class="motto" id="motto">Her geçen saniye bir adım daha yakın.</p>
+  <div class="banner-motto" id="motto">Her geçen saniye bir adım daha yakın.</div>
 </div>
 
+<!-- ══ SCHEDULE ══ -->
+<div class="main">
+  <div class="main-topbar">
+    <div class="main-title">günlük <span>ders programı</span></div>
+    <div class="today-badge" id="today-badge">—</div>
+  </div>
+  <div class="day-tabs" id="day-tabs"></div>
+  <div id="board"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-  // YKS 2026 — TYT: 21 Haziran 2026, saat 10:15
-  const EXAM = new Date('2026-06-21T10:15:00');
-  const YEAR_START = new Date(2025, 8, 1); // 1 Eylül 2025
+/* ── YKS ── */
+const EXAM       = new Date('2026-06-21T10:15:00');
+const YEAR_START = new Date(2025,8,1);
+const mottos = [
+  "Her geçen saniye bir adım daha yakın.",
+  "Sabır, zaferin sessiz ortağıdır.",
+  "Bugün ezip geçtiğin o konu, sınav gününde gülen sensin.",
+  "Yorulduğunda neden başladığını hatırla.",
+  "Küçük adımlar, büyük yolculuklar yaratır.",
+  "Dün diktiklerin bugün büyüyor.",
+];
+let mottoIdx=0;
+const mottoEl=document.getElementById('motto');
+function cycleMotto(){
+  mottoEl.style.opacity='0';
+  setTimeout(()=>{ mottoIdx=(mottoIdx+1)%mottos.length; mottoEl.textContent=mottos[mottoIdx]; mottoEl.style.opacity='.4'; },500);
+}
+setInterval(cycleMotto,7000);
 
-  const mottos = [
-    "Her geçen saniye bir adım daha yakın.",
-    "Sabır, zaferin sessiz ortağıdır.",
-    "Bugün ezip geçtiğin o konu, sınav gününde gülen sensin.",
-    "Yorulduğunda neden başladığını hatırla.",
-    "Küçük adımlar, büyük yolculuklar yaratır.",
-    "Dün diktiklerin bugün büyüyor.",
-  ];
+document.getElementById('exam-date-label').textContent=
+  EXAM.toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric',weekday:'long'})+' · Saat 10:15';
 
-  const mottoEl = document.getElementById('motto');
-  let mottoIdx = 0;
-
-  function cycleMotto() {
-    mottoEl.style.opacity = '0';
-    setTimeout(() => {
-      mottoIdx = (mottoIdx + 1) % mottos.length;
-      mottoEl.textContent = mottos[mottoIdx];
-      mottoEl.style.opacity = '0.35';
-    }, 600);
+function pad(n){return String(n).padStart(2,'0');}
+function tick(id,str){
+  const el=document.getElementById(id);
+  if(el.textContent!==str){el.classList.add('tick');setTimeout(()=>el.classList.remove('tick'),140);}
+  el.textContent=str;
+}
+function updateCountdown(){
+  const now=new Date(), diff=EXAM-now;
+  if(diff<=0){
+    document.getElementById('countdown').innerHTML=
+      '<span style="font-family:var(--display);font-size:clamp(1rem,3vw,2rem);color:var(--gold);letter-spacing:.05em">Sınav günü! Başarılar! 🎯</span>';
+    return;
   }
-  setInterval(cycleMotto, 7000);
+  const pct=Math.max(0,Math.min(100,((now-YEAR_START)/(EXAM-YEAR_START))*100));
+  document.getElementById('prog-fill').style.width=pct.toFixed(2)+'%';
+  document.getElementById('prog-pct').textContent='%'+pct.toFixed(1);
+  const d=Math.floor(diff/86400000);
+  tick('days',   d>99?String(d):pad(d));
+  tick('hours',  pad(Math.floor((diff%86400000)/3600000)));
+  tick('minutes',pad(Math.floor((diff%3600000)/60000)));
+  tick('seconds',pad(Math.floor((diff%60000)/1000)));
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
 
-  // Set exam date label
-  const opts = { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' };
-  document.getElementById('exam-date-label').textContent =
-    EXAM.toLocaleDateString('tr-TR', opts) + ' · Saat 10:15';
-  document.getElementById('prog-start').textContent = 'Bugün';
+/* ── Schedule ── */
+const DAYS      =['Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi','Pazar'];
+const DAYS_S    =['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+const todayIdx  =(new Date().getDay()+6)%7;
+let activeDay   =todayIdx;
+let SD          ={};
 
-  function pad(n) { return String(n).padStart(2, '0'); }
+function load(){
+  try{SD=JSON.parse(localStorage.getItem('ders-programi-v2')||'{}');}catch(e){SD={};}
+  DAYS.forEach((_,i)=>{if(!SD[i])SD[i]=[];});
+}
+function save(){localStorage.setItem('ders-programi-v2',JSON.stringify(SD));}
+function nb(){return{id:Date.now()+Math.random(),subject:'',start:'',end:'',tag:'',note:'',done:false};}
+function dur(s,e){
+  if(!s||!e)return'';
+  const[sh,sm]=s.split(':').map(Number),[eh,em]=e.split(':').map(Number);
+  if([sh,sm,eh,em].some(isNaN))return'';
+  const d=(eh*60+em)-(sh*60+sm); if(d<=0)return'';
+  const h=Math.floor(d/60),m=d%60;
+  return h>0?(m>0?`${h}s ${m}d`:`${h}s`):`${m}d`;
+}
+function stats(di){
+  const bl=SD[di]||[],done=bl.filter(b=>b.done).length;
+  let min=0;
+  bl.forEach(b=>{
+    if(!b.start||!b.end)return;
+    const[sh,sm]=b.start.split(':').map(Number),[eh,em]=b.end.split(':').map(Number);
+    if([sh,sm,eh,em].some(isNaN))return;
+    const d=(eh*60+em)-(sh*60+sm);if(d>0)min+=d;
+  });
+  const h=Math.floor(min/60),m=min%60;
+  return{total:bl.length,done,tot:min>0?(h>0?(m>0?`${h}s ${m}d`:`${h}s`):`${m}d`):'—'};
+}
 
-  function tick(id, val) {
-    const el = document.getElementById(id);
-    const prev = el.textContent;
-    const next = pad(val);
-    if (prev !== next) {
-      el.classList.add('tick');
-      setTimeout(() => el.classList.remove('tick'), 150);
+function renderTabs(){
+  const c=document.getElementById('day-tabs');c.innerHTML='';
+  DAYS.forEach((_,i)=>{
+    const t=document.createElement('button');
+    t.className='day-tab'+(i===todayIdx?' today-tab':'')+(i===activeDay?' active':'');
+    t.textContent=DAYS_S[i];t.title=DAYS[i];
+    t.onclick=()=>{activeDay=i;render();};
+    c.appendChild(t);
+  });
+}
+
+function renderBoard(){
+  const board=document.getElementById('board');board.innerHTML='';
+  DAYS.forEach((name,di)=>{
+    const panel=document.createElement('div');
+    panel.className='day-panel'+(di===activeDay?' active':'');
+    panel.id=`panel-${di}`;
+    const st=stats(di),bl=SD[di]||[];
+    const pct=bl.length>0?Math.round((st.done/bl.length)*100):0;
+    panel.innerHTML=`
+      <div class="day-header">
+        <div class="day-name">${name}</div>
+        <div class="day-stats">
+          <div class="stat"><span class="stat-num">${st.tot}</span><span class="stat-label">Toplam</span></div>
+          <div class="stat"><span class="stat-num">${st.done}/${st.total}</span><span class="stat-label">Tamamlandı</span></div>
+        </div>
+        <button class="add-btn" onclick="addBlock(${di})">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg> Ekle
+        </button>
+      </div>
+      <div class="day-progress"><div class="day-progress-fill" style="width:${pct}%"></div></div>
+      <div class="blocks" id="blocks-${di}"></div>`;
+    board.appendChild(panel);
+    const bc=panel.querySelector(`#blocks-${di}`);
+    if(!bl.length){
+      bc.innerHTML=`<div class="empty-state"><div class="empty-title">Bu gün için henüz ders yok</div><p>Ekle butonuna tıklayarak başla</p></div>`;
+    } else {
+      bl.forEach((b,bi)=>bc.appendChild(mkBlock(di,bi,b)));
     }
-    el.textContent = next;
-  }
+  });
+}
 
-  function update() {
-    const now = new Date();
-    const diff = EXAM - now;
+function mkBlock(di,bi,b){
+  const el=document.createElement('div');
+  el.className='block'+(b.done?' done':'');
+  const d=dur(b.start,b.end);
+  el.innerHTML=`
+    <div class="block-main">
+      <div class="block-check" onclick="toggleDone(${di},${bi})">
+        <div class="check-circle">
+          <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
+            <path d="M1 3.5L3.5 6L8 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="block-content">
+        <input class="block-subject" type="text" placeholder="Ders adı…" value="${esc(b.subject)}"
+          onblur="uf(${di},${bi},'subject',this.value)">
+        <div class="block-row2">
+          <div class="time-group">
+            <input class="time-input" type="time" value="${b.start}"
+              onchange="uf(${di},${bi},'start',this.value);ud(${di},${bi})">
+            <span class="time-sep">→</span>
+            <input class="time-input" type="time" value="${b.end}"
+              onchange="uf(${di},${bi},'end',this.value);ud(${di},${bi})">
+          </div>
+          <span class="duration-pill" id="dur-${b.id}" style="opacity:${d?1:0}">${d||'0s'}</span>
+          <input class="tag-input" type="text" placeholder="etiket…" value="${esc(b.tag)}"
+            onblur="uf(${di},${bi},'tag',this.value)">
+        </div>
+        <textarea class="block-note" placeholder="not…" rows="1"
+          oninput="ar(this);uf(${di},${bi},'note',this.value)">${esc(b.note)}</textarea>
+      </div>
+      <div class="block-actions">
+        <button class="icon-btn" onclick="delBlock(${di},${bi})" title="Sil">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 3.5h10M5.5 3.5V2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1M5 3.5l.5 8M9 3.5l-.5 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="icon-btn" onclick="mv(${di},${bi},-1)" title="Yukarı">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 10V2M2 6l4-4 4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="icon-btn" onclick="mv(${di},${bi},1)" title="Aşağı">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>`;
+  setTimeout(()=>{const ta=el.querySelector('.block-note');if(ta)ar(ta);},0);
+  return el;
+}
 
-    if (diff <= 0) {
-      document.getElementById('countdown').innerHTML =
-        '<p class="passed">Sınav günü geldi! Başarılar! 🎯</p>';
-      document.getElementById('motto').textContent = 'Emeklerin meyvesini topla.';
-      return;
-    }
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function ar(el){el.style.height='auto';el.style.height=el.scrollHeight+'px';}
+function uf(di,bi,field,val){if(!SD[di]||!SD[di][bi])return;SD[di][bi][field]=val;save();upStats(di);}
+function ud(di,bi){
+  const b=SD[di][bi],d=dur(b.start,b.end);
+  const dp=document.getElementById(`dur-${b.id}`);
+  if(dp){dp.textContent=d||'0s';dp.style.opacity=d?'1':'0';}
+  upStats(di);
+}
+function upStats(di){
+  const st=stats(di),p=document.getElementById(`panel-${di}`);if(!p)return;
+  const ns=p.querySelectorAll('.stat-num');
+  if(ns[0])ns[0].textContent=st.tot;
+  if(ns[1])ns[1].textContent=`${st.done}/${st.total}`;
+  const pct=st.total>0?Math.round((st.done/st.total)*100):0;
+  const f=p.querySelector('.day-progress-fill');if(f)f.style.width=pct+'%';
+}
+function toggleDone(di,bi){if(!SD[di]||!SD[di][bi])return;SD[di][bi].done=!SD[di][bi].done;save();render();}
+function addBlock(di){SD[di].push(nb());save();render();setTimeout(()=>{const p=document.getElementById(`panel-${di}`),ins=p.querySelectorAll('.block-subject');if(ins.length)ins[ins.length-1].focus();},50);}
+function delBlock(di,bi){SD[di].splice(bi,1);save();render();showToast('Blok silindi');}
+function mv(di,bi,dir){const arr=SD[di],ni=bi+dir;if(ni<0||ni>=arr.length)return;[arr[bi],arr[ni]]=[arr[ni],arr[bi]];save();render();}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+function updateBadge(){document.getElementById('today-badge').textContent=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',weekday:'long'});}
 
-    const totalMs = EXAM - YEAR_START;
-    const elapsed = now - YEAR_START;
-    const pct = Math.max(0, Math.min(100, (elapsed / totalMs) * 100));
-    document.getElementById('prog-fill').style.width = pct.toFixed(2) + '%';
-    document.getElementById('prog-pct').textContent = '%' + pct.toFixed(1);
-
-    const days    = Math.floor(diff / 86400000);
-    const hours   = Math.floor((diff % 86400000) / 3600000);
-    const minutes = Math.floor((diff % 3600000) / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-
-    tick('days', days > 999 ? days : days);
-    tick('hours', hours);
-    tick('minutes', minutes);
-    tick('seconds', seconds);
-
-    document.getElementById('days').textContent = days > 99 ? days : pad(days);
-  }
-
-  update();
-  setInterval(update, 1000);
+function render(){renderTabs();renderBoard();}
+load();updateBadge();render();
+setInterval(updateBadge,60000);
 </script>
 </body>
 </html>
