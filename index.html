@@ -1,58 +1,413 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>YKS 2026 Sayaç</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      background: url('bliss.jpg') no-repeat center center/cover;
-      color: #fff;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-    }
-    .date {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    .countdown {
-      font-size: 48px;
-      letter-spacing: 2px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YKS Sayacı 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f0e8;
+    --red: #c0392b;
+    --red-glow: rgba(192,57,43,0.3);
+    --gold: #b8960c;
+    --muted: rgba(245,240,232,0.35);
+    --line: rgba(245,240,232,0.12);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Crimson Pro', Georgia, serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Vignette */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Horizontal rule lines */
+  .rule {
+    position: fixed;
+    left: 5vw; right: 5vw;
+    height: 1px;
+    background: var(--line);
+    z-index: 1;
+  }
+  .rule-top { top: 10vh; }
+  .rule-bottom { bottom: 10vh; }
+
+  /* Vertical decorative lines */
+  .vline {
+    position: fixed;
+    top: 10vh; bottom: 10vh;
+    width: 1px;
+    background: var(--line);
+    z-index: 1;
+  }
+  .vline-left { left: 5vw; }
+  .vline-right { right: 5vw; }
+
+  /* Corner marks */
+  .corner {
+    position: fixed;
+    width: 20px; height: 20px;
+    z-index: 2;
+  }
+  .corner::before, .corner::after { content: ''; position: absolute; background: var(--muted); }
+  .corner::before { height: 1px; width: 100%; top: 0; left: 0; }
+  .corner::after { width: 1px; height: 100%; top: 0; left: 0; }
+  .c-tl { top: 10vh; left: 5vw; }
+  .c-tr { top: 10vh; right: 5vw; transform: scaleX(-1); }
+  .c-bl { bottom: 10vh; left: 5vw; transform: scaleY(-1); }
+  .c-br { bottom: 10vh; right: 5vw; transform: scale(-1); }
+
+  /* Main container */
+  .container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    animation: fadeIn 1.4s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Eyebrow label */
+  .eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeIn 1s 0.3s ease both;
+  }
+
+  /* Main heading */
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 12vw, 9rem);
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+    color: var(--paper);
+    text-shadow: 0 0 80px var(--red-glow), 0 2px 0 rgba(0,0,0,0.6);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 0.5s ease both;
+  }
+
+  h1 span {
+    color: var(--red);
+    display: block;
+    font-size: 1.1em;
+  }
+
+  /* Date subtitle */
+  .date-label {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-style: italic;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 4rem;
+    opacity: 0;
+    animation: fadeIn 1s 0.7s ease both;
+  }
+
+  /* Countdown grid */
+  .countdown {
+    display: flex;
+    gap: clamp(1rem, 4vw, 3rem);
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeIn 1s 0.9s ease both;
+  }
+
+  .unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    line-height: 1;
+    color: var(--paper);
+    text-shadow: 0 0 40px var(--red-glow);
+    min-width: clamp(2.5rem, 8vw, 5.5rem);
+    display: block;
+    transition: color 0.15s ease;
+  }
+
+  .number.tick {
+    color: var(--red);
+  }
+
+  .label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(0.55rem, 1.2vw, 0.75rem);
+    letter-spacing: 0.35em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* Separator dots */
+  .sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 1;
+    color: var(--red);
+    opacity: 0.6;
+    margin-top: 0.1em;
+    animation: blink 1s step-start infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.15; }
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    width: clamp(200px, 50vw, 420px);
+    margin: 0 auto 1.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 1.1s ease both;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  .progress-bar {
+    height: 2px;
+    background: var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--red));
+    box-shadow: 0 0 8px var(--red-glow);
+    transition: width 1s ease;
+  }
+
+  /* Motivational line */
+  .motto {
+    font-style: italic;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: fadeIn 1s 1.3s ease both;
+  }
+
+  /* Red glow orb behind countdown */
+  .glow-orb {
+    position: fixed;
+    width: 40vw;
+    height: 40vw;
+    background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.8; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%,-50%) scale(1.08); }
+  }
+
+  /* Exam passed state */
+  .passed {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 40px rgba(184,150,12,0.4);
+  }
+
+  @media (max-width: 480px) {
+    .countdown { gap: 0.6rem; }
+    .sep { margin: 0 -0.2rem; }
+  }
+</style>
 </head>
 <body>
-  <div class="date">21 Haziran 2026</div>
-  <div class="countdown" id="countdown"></div>
 
-  <script>
-    const targetDate = new Date("2026-06-21T10:15:00").getTime();
+<div class="rule rule-top"></div>
+<div class="rule rule-bottom"></div>
+<div class="vline vline-left"></div>
+<div class="vline vline-right"></div>
+<div class="corner c-tl"></div>
+<div class="corner c-tr"></div>
+<div class="corner c-bl"></div>
+<div class="corner c-br"></div>
+<div class="glow-orb"></div>
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
+<div class="container">
+  <p class="eyebrow">2026 · Türkiye Yükseköğretim Kurumları Sınavı</p>
 
-      if (diff <= 0) {
-        document.getElementById("countdown").innerText = "Sınav başladı";
-        return;
-      }
+  <h1>YKS<span id="headline">Sayacı</span></h1>
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+  <p class="date-label" id="exam-date-label">Sınav tarihi yükleniyor…</p>
 
-      document.getElementById("countdown").innerText =
-        `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye`;
+  <div class="countdown" id="countdown">
+    <div class="unit">
+      <span class="number" id="days">--</span>
+      <span class="label">Gün</span>
+    </div>
+    <div class="sep">:</div>
+    <div class="unit">
+      <span class="number" id="hours">--</span>
+      <span class="label">Saat</span>
+    </div>
+    <div class="sep">:</div>
+    <div class="unit">
+      <span class="number" id="minutes">--</span>
+      <span class="label">Dakika</span>
+    </div>
+    <div class="sep">:</div>
+    <div class="unit">
+      <span class="number" id="seconds">--</span>
+      <span class="label">Saniye</span>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="prog-start">—</span>
+      <span id="prog-pct">%—</span>
+      <span id="prog-end">Sınav</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <p class="motto" id="motto">Her geçen saniye bir adım daha yakın.</p>
+</div>
+
+<script>
+  // YKS 2026 — TYT: 21 Haziran 2026, saat 10:15
+  const EXAM = new Date('2026-06-21T10:15:00');
+  const YEAR_START = new Date('2025-09-01T00:00:00'); // yaklaşık okul yılı başlangıcı
+
+  const mottos = [
+    "Her geçen saniye bir adım daha yakın.",
+    "Sabır, zaferin sessiz ortağıdır.",
+    "Bugün ezip geçtiğin o konu, sınav gününde gülen sensin.",
+    "Yorulduğunda neden başladığını hatırla.",
+    "Küçük adımlar, büyük yolculuklar yaratır.",
+    "Dün diktiklerin bugün büyüyor.",
+  ];
+
+  const mottoEl = document.getElementById('motto');
+  let mottoIdx = 0;
+
+  function cycleMotto() {
+    mottoEl.style.opacity = '0';
+    setTimeout(() => {
+      mottoIdx = (mottoIdx + 1) % mottos.length;
+      mottoEl.textContent = mottos[mottoIdx];
+      mottoEl.style.opacity = '0.35';
+    }, 600);
+  }
+  setInterval(cycleMotto, 7000);
+
+  // Set exam date label
+  const opts = { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' };
+  document.getElementById('exam-date-label').textContent =
+    EXAM.toLocaleDateString('tr-TR', opts) + ' · Saat 10:15';
+  document.getElementById('prog-start').textContent = '1 Eylül 2025';
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick(id, val) {
+    const el = document.getElementById(id);
+    const prev = el.textContent;
+    const next = pad(val);
+    if (prev !== next) {
+      el.classList.add('tick');
+      setTimeout(() => el.classList.remove('tick'), 150);
+    }
+    el.textContent = next;
+  }
+
+  function update() {
+    const now = new Date();
+    const diff = EXAM - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML =
+        '<p class="passed">Sınav günü geldi! Başarılar! 🎯</p>';
+      document.getElementById('motto').textContent = 'Emeklerin meyvesini topla.';
+      return;
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
+    const totalMs = EXAM - YEAR_START;
+    const elapsed = now - YEAR_START;
+    const pct = Math.max(0, Math.min(100, (elapsed / totalMs) * 100));
+    document.getElementById('prog-fill').style.width = pct.toFixed(2) + '%';
+    document.getElementById('prog-pct').textContent = '%' + pct.toFixed(1);
+
+    const days    = Math.floor(diff / 86400000);
+    const hours   = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+
+    tick('days', days > 999 ? days : days);
+    tick('hours', hours);
+    tick('minutes', minutes);
+    tick('seconds', seconds);
+
+    document.getElementById('days').textContent = days > 99 ? days : pad(days);
+  }
+
+  update();
+  setInterval(update, 1000);
+</script>
 </body>
 </html>
